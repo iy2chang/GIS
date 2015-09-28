@@ -1,0 +1,71 @@
+
+// This version shows how to set the INITIAL color with which
+// a polygon layer, or point layer are displayed.  To handle
+// a line layer, cast to SimpleLineSymbol, and use // setLineColor()
+import javax.swing.JFrame;
+import java.awt.event.*;
+import java.awt.*;
+
+import com.esri.mo2.ui.bean.*;
+import com.esri.mo2.map.dpy.*;
+import com.esri.mo2.map.draw.*;
+import com.esri.mo2.ui.tb.*;
+public class QuickStartPreSetColor extends JFrame {
+  Map map = new Map();
+  com.esri.mo2.ui.bean.Layer layer = new com.esri.mo2.ui.bean.Layer();
+  com.esri.mo2.ui.bean.Layer layer2 = new com.esri.mo2.ui.bean.Layer();
+  Toc toc = new Toc();
+  String s1 = "C:\\ESRI\\MOJ20\\Samples\\Data\\USA\\States.shp";
+  String s2 = "C:\\ESRI\\MOJ20\\Samples\\Data\\USA\\capitals.shp";
+  String s3 = "C:\\ESRI\\MOJ20\\Samples\\Data\\USA\\counties.shp";
+  ZoomPanToolBar zptb = new ZoomPanToolBar();
+  public QuickStartPreSetColor() {
+    //add a title to the window
+    super("Quick Start");
+    //set the size
+    this.setBounds(50,50,900, 700);
+    //add the map to the frame
+    zptb.setMap(map);
+    toc.setMap(map);
+    getContentPane().add(map, BorderLayout.CENTER);
+    getContentPane().add(zptb,BorderLayout.NORTH);
+    //add a shape file to the map
+    addShapefileToMap(layer,s1);
+    addShapefileToMap(layer2,s2);
+    //add a Toc
+    java.util.List list = toc.getAllLegends();
+    com.esri.mo2.map.dpy.Layer lay1 = ((Legend)list.get(1)).getLayer();  //states layer
+    com.esri.mo2.map.dpy.Layer lay0 = ((Legend)list.get(0)).getLayer();
+    FeatureLayer flayer1 = (FeatureLayer)lay1;
+    FeatureLayer flayer0 = (FeatureLayer)lay0;
+    BaseSimpleRenderer bsr1 = (BaseSimpleRenderer)flayer1.getRenderer();
+    BaseSimpleRenderer bsr0 = (BaseSimpleRenderer)flayer0.getRenderer();
+    SimplePolygonSymbol sym1 = (SimplePolygonSymbol)bsr1.getSymbol();
+    SimpleMarkerSymbol sym0 = (SimpleMarkerSymbol)bsr0.getSymbol();
+    sym1.setPaint(AoFillStyle.getPaint(com.esri.mo2.map.draw.AoFillStyle.SOLID_FILL,new
+java.awt.Color(30,180,140)));
+    sym0.setSymbolColor(java.awt.Color.red);
+    bsr1.setSymbol(sym1);
+    bsr0.setSymbol(sym0);
+
+    System.out.println(lay1.getName());
+    getContentPane().add(toc, BorderLayout.WEST);
+  }
+    private void addShapefileToMap(com.esri.mo2.ui.bean.Layer layer,String s) {
+    String datapath = s; //"C:\\ESRI\\MOJ20\\Samples\\Data\\USA\\States.shp";
+    layer.setDataset("0;"+datapath);
+    map.add(layer);
+  }
+
+  public static void main(String[] args) {
+    QuickStartPreSetColor qstart = new QuickStartPreSetColor();
+    qstart.addWindowListener(new WindowAdapter() {
+        public void windowClosing(WindowEvent e) {
+            System.out.println("Thanks, Quick Start exits");
+            System.exit(0);
+        }
+    });
+    qstart.setVisible(true);
+  }
+}
+

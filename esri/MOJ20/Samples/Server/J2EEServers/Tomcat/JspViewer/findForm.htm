@@ -1,0 +1,125 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<HTML>
+<HEAD>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+	var t;
+	var sQuote = '\'';
+	if (opener) {
+		if (opener.name=="MapFrame") {
+			t = opener.parent.MapFrame;
+		} else {
+			t = opener;
+		}
+	} else {
+		
+		if (parent.MapFrame) {
+			t = parent.MapFrame;
+		} else {
+			t=document;
+		}
+	}
+	document.writeln('<TITLE>' + t.modeList[17] + '</TITLE>');
+		
+	function setStyle() {
+		var f = document.theFindForm;
+		var theValue = f.theStyle.value;
+		if (theValue!="") {
+			//t.getFind(theValue);
+			theValue = sQuote + theValue + sQuote;
+			doFind(theValue);
+		} else {
+			alert(t.msgList[99]);
+		}
+	}
+	
+	function doFind(theStringValue) { 
+		parent.MapFrame.QueryString = "";
+		parent.HasSelection = false;
+		parent.MapFrame.FindString = theStringValue;
+		document.QueryForm.action = parent.MapFrame.MOJServerController;
+		document.QueryForm.FindString.value = theStringValue;
+		document.QueryForm.Active.value = t.ActiveLayerIndex;
+		document.QueryForm.ServiceName.value = 	t.ServiceName;
+		document.QueryForm.Cmd.value = "Find";
+		//alert(theStringValue);
+		document.QueryForm.submit();
+	}
+</SCRIPT>
+</HEAD>
+
+<BODY BGCOLOR="Black" TEXT="White" TOPMARGIN=0 LEFTMARGIN=0>
+
+<FORM name="QueryForm" action="">
+<input type='hidden' name='Cmd' value='Query'>
+<input type='hidden' name='OptionCmd' value='Select'>
+<input type='hidden' name='Active' value=''>
+<input type='hidden' name='ServiceName' value=''>
+<input type='hidden' name='QueryString' value=''>
+<input type='hidden' name='SampleField' value=''>
+<input type='hidden' name='FindString' value=''>
+<input type='hidden' name='MapX' value=''>
+<input type='hidden' name='MapY' value=''>
+<input type='hidden' name='SelectMinX' size='5' value=''>
+<input type='hidden' name='SelectMinY' size='5' value=''>
+<input type='hidden' name='SelectMaxX' size='5' value=''>
+<input type='hidden' name='SelectMaxY' size='5' value=''>
+<input type='hidden' name='Tolerance' value=''>
+<input type='hidden' name='BufferDistance' size='5' value=''>
+<input type='hidden' name='BufferUnit' size='5' value=''>
+<input type='hidden' name='TargetLayer' size='5' value=''>
+</FORM>
+
+<DIV ALIGN="center">
+	<FONT FACE="Arial" SIZE="-2"><B>
+	<FORM ACTION="" NAME="theFindForm" onsubmit="setStyle(); return false;">
+	<TABLE CELLSPACING="2" NOWRAP BGCOLOR="Gray" WIDTH=100%>
+	<TR>
+		<TH COLSPAN="2" ALIGN="CENTER">
+		<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+			document.writeln('<FONT FACE="Arial" SIZE="-1"><B>' + t.modeList[17] + '</B><BR></FONT>');
+			document.writeln('<FONT FACE="Arial" SIZE="-2"><B>' + t.msgList[79] + '</B></FONT>');
+		</SCRIPT>
+		</TH>
+	</TR>
+	<TR>
+		<TD>
+		<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+			var t;
+			if (opener) {
+				if (opener.name=="MapFrame") {
+					t = opener.parent.MapFrame;
+				} else {
+					t = opener;
+				}
+				t = opener.parent.MapFrame;
+			} else {
+				if (parent.MapFrame) {
+					t = parent.MapFrame;
+				} else {
+					alert(t.msgList[91]);
+				}
+			}
+			document.writeln('<FONT FACE="Arial" SIZE="-2">' + t.msgList[90]);
+			var theValue = t.LayerName[t.ActiveLayerIndex];
+			document.write(theValue);
+			
+			document.writeln(': <INPUT TYPE=TEXT NAME="theStyle" VALUE="">');
+			document.writeln('</FONT>');
+			document.writeln('</TD>');
+			document.writeln('<TD ALIGN="CENTER">');
+			document.writeln('<INPUT TYPE="Button" NAME="setDU" VALUE="' + t.msgList[92] + '" onclick="setStyle()">  <BR>');
+		</SCRIPT>
+		</TD>
+					
+	</TR>
+	</TABLE>
+	</FORM>
+	</B></FONT>
+</DIV>
+</BODY>
+</HTML>
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HTML>

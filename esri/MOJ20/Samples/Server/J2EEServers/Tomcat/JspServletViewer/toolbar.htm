@@ -1,0 +1,375 @@
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<HTML>
+<HEAD>
+	
+	<SCRIPT LANGUAGE=JAVASCRIPT>
+		var t = parent.MapFrame;
+		//document.writeln('<TITLE> ' + t.titleList[12] + '</TITLE>');
+		var lBreak = "<br>";
+	   	var isSecond=true;
+	   	var currModeName="zoomin";
+	   	var version = navigator.appVersion;
+		var browser = navigator.appName;
+		//alert(browser);
+
+		function revertToolPic() {
+			// reset tool icons to non-set mode
+			//alert(lastMode);
+	   		if (parent.MapFrame.useZoomIn) document.zoomin.src="images/zoomin_1.gif";
+			if (parent.MapFrame.useZoomOut) document.zoomout.src="images/zoomout_1.gif";
+			if (parent.MapFrame.useIdentify) document.identify.src="images/identify_1.gif";
+			if (parent.MapFrame.usePan) document.pan.src="images/pan_1.gif";
+			if (parent.MapFrame.useMeasure) document.measure.src="images/measure_1.gif";
+			if (parent.MapFrame.useSelect) {
+				document.rect.src="images/select_rect_1.gif";
+				//document.line.src="images/select_1.gif";
+			}
+			if (parent.MapFrame.useBufferShape) document.buffershape.src="images/buffershape_1.gif";
+			if (parent.MapFrame.useHyperLink) document.hyperlink.src="images/hotlink_1.gif";
+			if (parent.MapFrame.useHyperLinkAny) document.hyperlink.src="images/hotlink_1.gif";
+			if (parent.MapFrame.useIdentifyAll) document.identifyall.src="images/identifyall_1.gif";
+	   	}
+	
+		function setToolPic(functName) {
+	   		// set clicked button icon to set mode
+	   		//if (functName!=parent.MapFrame.modeName) {
+			   	revertToolPic();
+				parent.MapFrame.focus();
+				//alert(functName);
+			  	if (functName=="Zoom In") {
+					document.zoomin.src="images/zoomin_2.gif";
+				} else if (functName=="Zoom Out") {
+					document.zoomout.src="images/zoomout_2.gif";
+				} else if (functName=="Identify") {
+					document.identify.src="images/identify_2.gif";
+				} else if (functName=="Pan") {
+					document.pan.src="images/pan_2.gif";
+				} else if (functName=="Measure") {
+					document.measure.src="images/measure_2.gif";
+				} else if (functName=="Select Rectangle") {
+					document.rect.src="images/select_rect_2.gif";
+				} else if (functName=="Buffer Shape") {
+					document.buffershape.src="images/buffershape_2.gif";
+				} else if (functName=="Select Line/Polygon") {
+					document.line.src="images/select_2.gif";
+				} else if (functName=="HyperLink") {
+					document.hyperlink.src="images/hotlink_2.gif";
+				} else if (functName=="Identify All") {
+						document.identifyall.src="images/identifyall_2.gif";
+				}
+			//}
+		}
+
+		function openGeoNetwork() {
+			var Win1 = window.open("http://www.geographynetwork.com","","scrollbars,resizable,toolbar,width=750,height=580");
+		}
+	   
+	</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="Silver" TEXT="Black" LINK="White" VLINK="White" LEFTMARGIN=0 TOPMARGIN=0 RIGHTMARGIN=0 ALINK="White" onload="setToolPic(parent.MapFrame.modeBlurb)">
+	<DIV ALIGN="center">
+		<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="1" ALIGN="CENTER" VALIGN="MIDDLE" BGCOLOR="White" BORDERCOLOR="Gray" BORDERCOLORLIGHT="Silver" BORDERCOLORDARK="Black">
+		
+			<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript1.2">
+				/*
+				if (parent.MapFrame.useGeoNetwork) {		
+					document.writeln('<tr><TD COLSPAN="2" align="center" valign="middle">');
+					document.writeln('<IMG SRC="images/GN_tool1.gif" WIDTH=18 HEIGHT=18 HSPACE=0 VSPACE=0 BORDER=0 ALT="Geography Network" onmousedown="openGeoNetwork()" onmouseover="window.status=\'Geography Network\'">');
+					document.writeln('</TD></tr>');
+				}
+				*/	
+				
+				//alert("hasTOC " + parent.MapFrame.hasTOC);
+				document.write('<tr>');	
+				if ((parent.MapFrame.hasTOC) && (parent.MapFrame.legendPresent)) {
+					// Legend toggle. . . requires legend.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/togglelegend.gif" width=16 height=16 hspace=1 vspace=0 border=0 alt=" ' + t.buttonList[14] + '" name="legend" onmousedown="parent.MapFrame.clickFunction(\'legend\');" onmouseover="window.status=\' ' + t.buttonList[14] + '\'">');
+					isSecond = !isSecond;
+					document.writeln('</td>');
+				}
+				if (parent.MapFrame.hasOVMap) {
+					// Overview Map toggle . . . requires overview map
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/overview_html.gif" width=16 height=16 hspace=1 vspace=0 border=0 alt=" ' + t.buttonList[15] + '" name="refmap" onmousedown="parent.MapFrame.toggleOVMap();" onmouseover="window.status=\' ' + t.buttonList[15] + '\'">');
+					isSecond = !isSecond;
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				if (parent.MapFrame.useZoomIn) {
+					// Zoom In . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/zoomin_1.gif" width=16 height=16 hspace=1 vspace=0 border=0 alt=" ' + t.buttonList[16] + '" name="zoomin" onmousedown="parent.MapFrame.clickFunction(\'zoomin\'); setToolPic(\'Zoom In\');" onmouseover="window.status=\' ' + t.buttonList[16] + '\'">');
+					isSecond = !isSecond;
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+				if (parent.MapFrame.useZoomOut) {
+					// Zoom Out . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/zoomout_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[17] + '" name="zoomout" onmousedown="parent.MapFrame.clickFunction(\'zoomout\'); setToolPic(\'Zoom Out\');" onmouseover="window.status=\' ' + t.buttonList[17] + 't\'">');
+					isSecond = !isSecond;
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+				if (parent.MapFrame.useFullExtent) {
+					// Full Extennt . . . requires amisLayers.js
+					document.write('<td align="center" valign="middle">');	
+					document.write('<img src="images/fullextent_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[18] + '" onmousedown="parent.MapFrame.clickFunction(\'fullextent\');" onmouseover="window.status=\' ' + t.buttonList[18] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+				if (parent.MapFrame.useZoomActive) {
+					// Zoom to Active Layer . . . requires layers.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/zoomactive_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[19] + '" onmousedown="parent.MapFrame.clickFunction(\'zoomactive\');" onmouseover="window.status=\' ' + t.buttonList[19] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+				
+				if (parent.MapFrame.useZoomLast) {
+					// Zoom to previous extent . . . requires layers.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/zoomlast.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[20] + '" onmousedown="parent.MapFrame.clickFunction(\'zoomlast\');" onmouseover="window.status=\' ' + t.buttonList[20] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+
+				if (parent.MapFrame.usePan) {
+					// Pan Button . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/pan_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[21] + '" name="pan" onmousedown="parent.MapFrame.clickFunction(\'pan\'); setToolPic(\'Pan\');" onmouseover="window.status=\' ' + t.buttonList[21] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+					
+				}	
+					
+				if (parent.MapFrame.usePanNorth) {
+					// Pan North . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/pan_north.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[22] + '" onmousedown="parent.MapFrame.panButton(2);" onmouseover="window.status=\' ' + t.buttonList[22] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+						
+				}
+				
+				if (parent.MapFrame.usePanSouth) {
+					// Pan South . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/pan_south.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[23] + '" onmousedown="parent.MapFrame.panButton(4);" onmouseover="window.status=\' ' + t.buttonList[23] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+				if (parent.MapFrame.usePanWest) {
+					// Pan West . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/pan_west.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[24] + '" onmousedown="parent.MapFrame.panButton(1);" onmouseover="window.status=\' ' + t.buttonList[24] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+					
+				if (parent.MapFrame.usePanEast) {
+					// Pan East . . . requires navigation.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/pan_east.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[25] + '" onmousedown="parent.MapFrame.panButton(3);" onmouseover="window.status=\' ' + t.buttonList[25] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					// only one of these next two (useHyperLink or useHyperLinkAny) can be true - useHyperLink takes priority 
+				if (parent.MapFrame.useHyperLink) {
+					// HyperLink . . . requires identify.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/hotlink.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[26] + '" name="hyperlink" onmousedown="parent.MapFrame.clickFunction(\'hyperlink\'); setToolPic(\'HyperLink\');" onmouseover="window.status=\' ' + t.buttonList[26] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				} 
+				if (parent.MapFrame.useHyperLinkAny) {
+					// HyperLink . . . requires identify.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/hotlink.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[26] + '" name="hyperlink" onmousedown="parent.MapFrame.clickFunction(\'hyperlinkany\'); setToolPic(\'HyperLink\');" onmouseover="window.status=\' ' + t.buttonList[26] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					// only one of these next two (useIdentify or useIdentifyAll) can be true - useIdentify takes priority 
+				if (parent.MapFrame.useIdentify) {
+					// Identify . . . requires identify.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/identify_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[27] + '" name="identify" onmousedown="parent.MapFrame.clickFunction(\'identify\'); setToolPic(\'Identify\');" onmouseover="window.status=\' ' + t.buttonList[27] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+			    if (parent.MapFrame.useIdentifyAll) {
+					// Identify All - identify on all visible feature layers. . . drill down
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/identifyall_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt="' + t.modeList[20] + '" name="identifyall" onmousedown="parent.MapFrame.clickFunction(\'identifyall\'); setToolPic(\'Identify All\');" onmouseover="window.status=\'' + t.modeList[20] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+					
+				//if ((parent.MapFrame.useQuery) && (version.indexOf("MSIE 5")==-1)) {
+				if (parent.MapFrame.useQuery) {
+					// Query . . . requires query.js
+					// IE 5.0 has big problems with the query stuff
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/query_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[28] + '" onmousedown="parent.MapFrame.clickFunction(\'query\'); setToolPic(\'ClearOut\');" onmouseover="window.status=\' ' + t.buttonList[28] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+				if (parent.MapFrame.useStoredQuery) {
+					// Search . . . requires query.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/search.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[29] + '" onmousedown="parent.MapFrame.clickFunction(\'storedquery\'); setToolPic(\'ClearOut\');" onmouseover="window.status=\' ' + t.buttonList[29] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+				if (parent.MapFrame.useFind) {
+					// Find . . . requires query.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/find_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[30] + '" onmousedown="parent.MapFrame.clickFunction(\'find\'); setToolPic(\'ClearOut\');" onmouseover="window.status=\' ' + t.buttonList[30] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+				if (parent.MapFrame.useMeasure) {
+					// Measure
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/measure_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[31] + '" name="measure" onmousedown="parent.MapFrame.clickFunction(\'measure\'); setToolPic(\'Measure\');" onmouseover="window.status=\' ' + t.buttonList[31] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+					
+				if (parent.MapFrame.useSetUnits) {
+					// Set Units
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/setunits.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[32] + '" onmousedown="parent.MapFrame.clickFunction(\'setunits\');" onmouseover="window.status=\' ' + t.buttonList[32] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+			
+				if (parent.MapFrame.useBuffer) {
+					// Buffer . . . requires buffer.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/buffer_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[33] + '" name="buffer" onmousedown="parent.MapFrame.clickFunction(\'buffer\'); setToolPic(\'Buffer\');" onmouseover="window.status=\' ' + t.buttonList[33] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+
+				if (parent.MapFrame.useSelect) {
+					// Graphic Selection tools . . . requires select.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/select_rect_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[34] + '" name="rect" onmousedown="parent.MapFrame.clickFunction(\'selectbox\'); setToolPic(\'Select Rectangle\');" onmouseover="window.status=\' ' + t.buttonList[34] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+					//document.write('<td align="center" valign="middle">');	
+					//document.write('<img src="images/select_1.gif" width=16 height=16 hspace=0 vspace=1 border=0 alt=" ' + t.buttonList[35] + '" name="line" onmousedown="parent.MapFrame.clickFunction(\'selectshape\'); setToolPic(\'Select Line/Polygon\');" onmouseover="window.status=\' ' + t.buttonList[35] + '\'">');
+					//isSecond = !isSecond
+					//document.writeln('</td>');
+					//if (isSecond) document.write('</tr><tr>');
+				}	
+				///*
+				if (parent.MapFrame.useBufferShape) {
+					// Buffer Shape. . . requires select.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/buffershape_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt="Buffer Shape" name="buffershape" onmousedown="parent.MapFrame.clickFunction(\'buffershape\'); setToolPic(\'Buffer Shape\');" onmouseover="window.status=\'Buffer Shape\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}	
+				//*/
+			
+				if (parent.MapFrame.useClearSelect) {
+					// Clear selection . . . requires identify.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/clearhighlight_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[36] + '" onmousedown="parent.MapFrame.clearSelection();" onmouseover="window.status=\' ' + t.buttonList[36] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				if (parent.MapFrame.useGeocode) {
+					// Geocode. . . requires geocode.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/geocode.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[37] + '" onmousedown="parent.MapFrame.clickFunction(\'geocode\');" onmouseover="window.status=\' ' + t.buttonList[37] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				if (parent.MapFrame.usePrint) {
+					// Print. . . requires print.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/print_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[38] + '" onmousedown="parent.MapFrame.clickFunction(\'print\');" onmouseover="window.status=\' ' + t.buttonList[38] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				if (parent.MapFrame.useExtract) {
+					// Extract. . . zip and ship. . . requires custom.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/zipship.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[39] + '" onmousedown="parent.MapFrame.clickFunction(\'extract\');" onmouseover="window.status=\' ' + t.buttonList[39] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				if (parent.MapFrame.allowOptions) {
+					// Options. . . requiers options.js... allowOptions is set to true in this file
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/wrench.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[40] + '" onmousedown="parent.MapFrame.writeOptionForm();" onmouseover="window.status=\' ' + t.buttonList[40] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				if (parent.MapFrame.canAddService) {
+					// Load MapService. . . 
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/open_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[41] + '" onmousedown="parent.MapFrame.loadServiceForm();" onmouseover="window.status=\' ' + t.buttonList[41] + '\'">');
+					document.writeln('</td>');
+				}
+				if (parent.MapFrame.canLoad) {
+					// Load MapService. . . requires generic.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/open_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[41] + '" onmousedown="parent.MapFrame.loadMapForm();" onmouseover="window.status=\' ' + t.buttonList[41] + '\'">');
+					document.writeln('</td>');
+				}
+				if (parent.MapFrame.usePrintLayout) {
+					// Print. . . requires print.js
+					document.write('<td align="center" valign="middle">');
+					document.write('<img src="images/print_1.gif" width=16 height=16 hspace=1 vspace=1 border=0 alt=" ' + t.buttonList[55] + '" onmousedown="parent.MapFrame.clickFunction(\'printLayout\');" onmouseover="window.status=\' ' + t.buttonList[55] + '\'">');
+					isSecond = !isSecond
+					document.writeln('</td>');
+					if (isSecond) document.write('</tr><tr>');
+				}
+				document.writeln('</tr>');
+				document.writeln('</TABLE>');
+
+					
+			</SCRIPT>	
+			
+			
+			
+	</DIV>
+</BODY>
+</HTML>

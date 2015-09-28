@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jboss>
+
+  <enterprise-beans>
+
+    <entity>
+      <ejb-name>ServiceCatalogBean2</ejb-name>
+      <jndi-name>ejb/ServiceCatalogBean</jndi-name>
+      <resource-ref>
+	<res-ref-name>jdbc/MapServiceDS</res-ref-name>
+	<jndi-name>java:/MySqlDS</jndi-name>
+      </resource-ref>
+    </entity>
+
+    <session>
+      <ejb-name>MapServiceII</ejb-name>
+      <jndi-name>ejb/MapServiceII</jndi-name>
+    </session>
+
+    <session>
+      <ejb-name>LayoutService</ejb-name>
+      <jndi-name>ejb/LayoutService</jndi-name>
+    </session>
+
+  </enterprise-beans>
+
+
+</jboss>

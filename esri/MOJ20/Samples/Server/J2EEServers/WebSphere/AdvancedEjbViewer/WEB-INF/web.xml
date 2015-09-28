@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE web-app PUBLIC '-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN' 'http://java.sun.com/j2ee/dtds/web-app_2_2.dtd'>
+
+<web-app>
+
+    <servlet>
+        <servlet-name>MOJEJBControllerII</servlet-name>
+        <servlet-class>com.esri.svr.servlet.EJBControllerII</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MOJEJBControllerII</servlet-name>
+        <url-pattern>/servlet/*</url-pattern>
+    </servlet-mapping>
+
+   <welcome-file-list>
+    <welcome-file>viewer.htm</welcome-file>
+   </welcome-file-list> 
+
+  <ejb-ref>
+    <ejb-ref-name>ejb/MapServiceII</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <home>com.esri.svr.ejb.MapServiceIIHome</home>
+    <remote>com.esri.svr.ejb.MapServiceII</remote>
+    <ejb-link>MapServiceII</ejb-link>
+  </ejb-ref>
+
+  <ejb-ref>
+    <ejb-ref-name>ejb/Catalog</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <home>com.esri.svr.ejb.CatalogHome</home>
+    <remote>com.esri.svr.ejb.Catalog</remote>
+    <ejb-link>MapServiceII</ejb-link>
+  </ejb-ref>
+
+  <ejb-ref>
+    <ejb-ref-name>ejb/LayoutService</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <home>com.esri.svr.ejb.LayoutHome</home>
+    <remote>com.esri.svr.ejb.LayoutService</remote>
+    <ejb-link>MapServiceII</ejb-link>
+  </ejb-ref>
+
+
+</web-app>
+

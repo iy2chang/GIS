@@ -1,0 +1,1315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Deploy MOJ JSP viewers and EJBs in JBoss 3.0.6 with embedded Tomcat
+4.1.18</title>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+             
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+       
+  <meta name="author" content="Frank Xia">
+</head>
+  <body>
+                                                                        
+                                                                        
+    
+<h1>Deploy MOJ JSP viewers and EJBs in JBoss 3.0.6 with embedded Tomcat 4.1.18</h1>
+                                                                        
+                                                                        
+     
+<h2>Table of contents</h2>
+                                                                        
+     <a href="#Deploy_MOJ_EJBs_and_JSP_Viewers_in_JBoss">  Deploy    MOJ
+  EJBs     and  JSP Viewers in JBoss</a><br>
+                                                                        
+      &nbsp;&nbsp;&nbsp;           <a
+ href="#Setup_and_startup_JBoss_server">   Setup    and   startup    JBoss 
+      server</a><br>
+                                                                        
+      &nbsp;&nbsp;&nbsp;             <a href="#Deploy_JSP_viewers">Deploy 
+    JSP   viewers</a><br>
+                                                                        
+      &nbsp;&nbsp;&nbsp;                   <a
+ href="#Deploy_Simple_EJB_and_its_viewer"> Deploy SimpleEJB       and   
+its   viewer</a><br>
+                                                                        
+      &nbsp;&nbsp;&nbsp;                  <a
+ href="#Deploy_AdvancedEJB_and_its_viewer"> Deploy AdvancedEJB         and
+     its    viewer</a><br>
+                                                                        
+     <br>
+                                                                        
+     <a href="#Testing_JSP_viewers_and_map_EJBs_and">  Testing     JSP  
+viewers,                               and map EJBs and their viewers</a><br>
+                                                                        
+      &nbsp;&nbsp;&nbsp;          <a href="#Test_JSP_Viewers">  Testing 
+      JSP     Viewers</a>    <br>
+                                                                        
+                                 &nbsp;&nbsp;&nbsp;                   <a
+ href="#Testing_SimpleEJB_and_its_viewer">Testing SimpleEJB       and    its
+  viewer</a><br>
+                                                                        
+                                                      &nbsp;&nbsp;&nbsp;
+                             <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with">   Testing             
+AdvancedEJB                                             and its    viewer
+   standalone   admin       tool</a><br>
+                                                                        
+                                                    &nbsp;&nbsp;&nbsp;  
+                           <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with_web">     Testing       
+     AdvancedEJB                       and its viewer with   web-based  
+  admin       tool</a><br>
+                                                                        
+                                                   <br>
+                                                                        
+                                                                        
+      
+<h2><a name="Deploy_MOJ_EJBs_and_JSP_Viewers_in_JBoss"></a>Deploy MOJ EJBs 
+                                                                         and
+   JSP    Viewers        in   JBoss</h2>
+                                                                        
+                                                                        
+      
+<h3><a name="Setup_and_startup_JBoss_server"></a>Setup and startup JBoss 
+   server</h3>
+                                                                        
+                                                                        
+     
+<ol>
+                                                                        
+                                             <li>Donwload             and 
+  install         JBoss      3.0.6       with     embedded        Tomat  
+     4.1.18         from      <a href="http://www.jboss.org"
+ target="_blank"> http://www.jboss.org</a>            <br>
+                                                                        
+                                                                     </li>
+                                                                      <br>
+                                                                        
+                                                                        
+                                                                        
+                                                           <li>      Create 
+    a   directory           named           <tt>output.war</tt>          
+            under $JBOSS/server/default/deploy                          
+     as    temporary   image   output         folder and copy the content from $MOJ20/Samples/server/J2EEServers/Jboss/output folder.   Note  that     you
+  need     to     clean        up temporary          images  in   this   
+ folder     periodically          by yourself,    and  $JBOSS denotes  the 
+ JBoss  install directory, such as D:\jboss-3.0.6_tomcat-4.1.18       in a
+ Windows   machine.<br>
+                                                                        
+                                                                        
+                                                                        
+                                                           </li>
+                                                                        
+               <br>
+                                                                        
+           <li>Copy         jar   files     from     $MOJ20/lib         
+ and       $MOJ20/Samples/Server/IOStreamProvider/esri_iostreamprovider.jar 
+                                                            to   $JBOSS/server/default/lib.
+      Note     that  the   $MOJ20     denotes               the       MapObjects
+                Java      Edition   2.0&#8217;s installation       directory such
+  as  D:\ESRI\MOJ20    in  Windows machine.<br>
+                                                                        
+                                                                        
+                                                                        
+                                                           </li>
+                                                                        
+                <br>
+                                                                        
+          <li>Start up             JBoss, open &nbsp;a command    window
+and go to $JBOSS/bin directory:<br>
+ <br>
+For a <b>Window</b> machine, run batch file, <tt>run.bat</tt>. <br>
+    <br>
+For a <b>Linux</b> or <b>Unix</b> machine, run script, <tt>./run.sh</tt>.
+    <br>
+                                                                        
+              </li>
+                                                                        
+                                                                        
+    
+</ol>
+                                                                        
+                                                                        
+     
+<h3><a name="Deploy_JSP_viewers"></a>Deploy JSP viewers<br>
+                                                                        
+                                           </h3>
+                                                                        
+                                                                        
+    
+<ol>
+                                                                        
+      <li>    Replace     the       <i><span
+ style="font-family: &quot;Courier New&quot;;">$MOJ</span>20</i>                string
+  within                        the   two         sample    AXL    files
+  (usa.axl and world.axl            in   $MOJ20/Samples/Server/AXLFiles 
+              folder)   with   the   MOJ    2.0     install            directory
+        such  as     <i><span style="font-family: &quot;Courier New&quot;;">&#8216;/ESRI/MOJ20&#8217;</span></i>
+                             <br>
+                                                                        
+                       <br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+           
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 0% 50%; width: 100%; margin-left: 0.5in;">
+                                                                        
+                                <tbody>
+                                                                        
+                                    <tr>
+                                                                        
+                                     <td valign="top"
+ style="padding: 1.5pt;">                                               
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                   
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;ARCXML&gt;<br>
+                                                                        
+                           ...<br>
+                                                                        
+                           &lt;WORKSPACES&gt;<br>
+                                                                        
+                           &lt;SHAPEWORKSPACE          name="ws-0"      
+directory="$<i>MOJ20</i>/Samples/Data/USA"                              
+    /&gt;<br>
+                                                                        
+                           &lt;/WORKSPACES&gt;<br>
+                                                                        
+                           ...<br>
+                                                                        
+                           &lt;/ARCXML&gt;</span></p>
+                                                                        
+                                     </td>
+                                                                        
+                                  </tr>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                 
+      </tbody>                                                           
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                       
+    </table>
+                                                                        
+                       </li>
+                                                                        
+                     <br>
+                                                                        
+                         <li>Modifiy       two   map   service       configuration
+                   file,      mapservices.xml,                        located
+        at&nbsp;        $MOJ20/Samples/Server/J2EEServers/JBoss/JspViewer/WEB-INF/classes 
+                                                           directory and $MOJ20/Samples/Server/J2EEServers/JBoss/JspServletViewer/WEB-INF/classes, 
+                                     replace <i>$MOJ20</i> strings in the 
+    <tt>axl_file</tt>                  element        with     the    MOJ2.0 
+  install diretory such     as   '/ESRI/MOJ20'&nbsp;                     
+and    the     <tt>#output_directory_name#</tt>             strings     
+  with     the      map    image       output  directory        created in
+step         3  of            <a href="#Setup_and_startup_JBoss_server">Setup
+and    startup     JBoss            server</a>.           It   looks  something
+        like    this:      <br>
+                                                                        
+                            <br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+           
+    <table border="0" cellpadding="0" width="100%" bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 0% 50%; width: 100%; margin-left: 0.5in;">
+                                                                        
+                                   <tbody>
+                                                                        
+                                       <tr>
+                                                                        
+                                        <td valign="top"
+ style="padding: 0in;">                                                  
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                      
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;services&gt;<br>
+                                                                        
+                              &lt;name&gt;usa1&lt;/name&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;output_dir&gt;#output_directory_name#</span><span
+ style="font-family: &quot;Courier New&quot;;">&lt;/output_dir&gt;<br>
+                                                                        
+                              &lt;output_url&gt;&lt;/output_url&gt;<br>
+                                                                        
+                              &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/usa.axl&lt;/axl_file&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;name&gt;world2&lt;/name&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;output_dir&gt;#output_directory_name#</span><span
+ style="font-family: &quot;Courier New&quot;;">&lt;/output_dir&gt;<br>
+                                                                        
+                              &lt;output_url&gt;&lt;/output_url&gt;     
+                                  <br>
+                                                                        
+   &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/world.axl&lt;/axl_file&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;/services&gt;</span></p>
+                                                                        
+                                        </td>
+                                                                        
+                                     </tr>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+               
+      </tbody>                                                           
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                       
+    </table>
+                                                                        
+                          </li>
+                                                                        
+                                                   <br>
+                                                                        
+                                                                        
+  <li>Create      a  directory      called <tt>JspViewer.war</tt> under $JBOSS/server/default/deploy. 
+          <br>
+                                                                        
+                                                                        
+     </li>
+                                                                        
+                                                   <br>
+                                                                        
+                                                                        
+  <li>Create      a  directory      called <tt>JspServletViewer.war</tt>
+under $JBOSS/server/default/deploy<tt><nobr></nobr></tt>.               <br>
+                                                                        
+                                                                        
+     </li>
+                                                                        
+                                                   <br>
+                                                                        
+                                                                        
+  <li>Copy     all   of the files    under   $MOJ20/Samples/Server/J2EEServers/JBoss/JspViewer&nbsp; 
+           to      $JBOSS/server/default/deploy        /JspViewer.war folder. 
+        <br>
+                    </li>
+                    <br>
+                         <li>Copy all of the files under $MOJ20/Samples/Server/J2EEServers/JBoss/JspServletViewer&nbsp; 
+                 to    $JBOSS/server/default/deploy      /JspServletViewer.war 
+     folder.        <br>
+                        </li>
+                                                                        
+          <br>
+                                                                        
+         <li>Now     you   can   start    testing     these    two   JSP
+  viewers       by  following           instructions      in     <a
+ href="#Test_JSP_Viewers">Testing    JSP    Viewers</a>.<br>
+                                                                        
+                                               </li>
+                                                                        
+                                                                        
+    
+</ol>
+                                                                        
+                                                                        
+      
+<h3><a name="Deploy_Simple_EJB_and_its_viewer"></a>Deploy SimpleEJB and 
+its viewer<br>
+                                                                        
+                </h3>
+                                                                        
+                                                                        
+    
+<ol>
+                                                                        
+                      <li>You     can   skip   this   step   if  you   already
+       did     it   in  Step  1  in       <a href="#Deploy_JSP_viewers">Deploy 
+       JSP  Viewers</a>        section. Otherwise            replace the 
+    <i><span style="font-family: &quot;Courier New&quot;;">$MOJ</span>20</i>      
+              string within         the   two         sample AXL files  
+ (usa.axl        and world.axl      in $MOJ20/Samples/Server/AXLFiles   
+    folder)    with      the MOJ 2.0   install           directory such as
+     <i><span style="font-family: &quot;Courier New&quot;;">&#8216;/ESRI/MOJ20&#8217;.</span></i> 
+                    <br>
+                                                                        
+                       <br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+           
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 0% 50%; width: 100%; margin-left: 0.5in;">
+                                                                        
+                                <tbody>
+                                                                        
+                                    <tr>
+                                                                        
+                                     <td valign="top"
+ style="padding: 1.5pt;">                                               
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                   
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;ARCXML&gt;<br>
+                                                                        
+                           ...<br>
+                                                                        
+                           &lt;WORKSPACES&gt;<br>
+                                                                        
+                           &lt;SHAPEWORKSPACE          name="ws-0"      
+directory="$<i>MOJ20</i>/Samples/Data/USA"                              
+    /&gt;<br>
+                                                                        
+                           &lt;/WORKSPACES&gt;<br>
+                                                                        
+                           ...<br>
+                                                                        
+                           &lt;/ARCXML&gt;</span></p>
+                                                                        
+                                     </td>
+                                                                        
+                                  </tr>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                 
+      </tbody>                                                           
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                       
+    </table>
+                                                                        
+                       </li>
+                                                                        
+                     <br>
+                                                                        
+                         <li>Modifiy       two   map   service       configuration
+                   file,      mapservices.xml,                        located
+        at&nbsp;&nbsp;             $MOJ20/Samples/Server/J2EEServers/JBoss/SimpleEjb/META-INF
+                                                      directory, replace
+    <i>$MOJ20</i>                 strings        in   the      <tt>axl_file</tt>
+     element   with     the     MOJ2.0     install   diretory      such as
+'/ESRI/MOJ20'&nbsp;                 and the       <tt>#output_directory_name#</tt>
+          strings        with  the     map        image      output  directory
+created     in     step      3  of       <a
+ href="#Setup_and_startup_JBoss_server">Setup   and  startup       JBoss 
+    server</a>.         It   looks  something      like   this:         
+   <br>
+                                                                        
+                            <br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+           
+    <table border="0" cellpadding="0" width="100%" bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 0% 50%; width: 100%; margin-left: 0.5in;">
+                                                                        
+                                   <tbody>
+                                                                        
+                                       <tr>
+                                                                        
+                                        <td valign="top"
+ style="padding: 0in;">                                                  
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                 
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;services&gt;<br>
+                                                                        
+                              &lt;name&gt;usa1&lt;/name&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;output_dir&gt;#output_directory_name#</span><span
+ style="font-family: &quot;Courier New&quot;;">&lt;/output_dir&gt;<br>
+                                                                        
+                              &lt;output_url&gt;&lt;/output_url&gt;<br>
+                                                                        
+                              &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/usa.axl&lt;/axl_file&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;name&gt;world2&lt;/name&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;output_dir&gt;#output_directory_name#</span><span
+ style="font-family: &quot;Courier New&quot;;">&lt;/output_dir&gt;<br>
+                                                                        
+                              &lt;output_url&gt;&lt;/output_url&gt;     
+                                  <br>
+                                                                        
+   &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/world.axl&lt;/axl_file&gt;<br>
+                                                                        
+                              ...<br>
+                                                                        
+                              &lt;/services&gt;</span></p>
+                                                                        
+                                        </td>
+                                                                        
+                                     </tr>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                 
+      </tbody>                                                           
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                       
+    </table>
+                                                                        
+                            <br>
+                                                                        
+                                                                        
+     </li>
+                                                                        
+               <br>
+                                                                        
+        <li>Create           a  jar     file     called       SimpleEjb.jar 
+               that       packs     all    the      contents       under directory
+       of   $MOJ20/Samples/Server/J2EEServers/JBoss/SimpleEjb.          
+     <br>
+                                                                        
+                                                                        
+     </li>
+                                                                        
+                                                       <br>
+                                                                        
+                                                                        
+  <li>Copy       SimpleEjb.jar                           to $JBOSS/server/default/deploy
+                             folder.&nbsp; <br>
+                       </li>
+                      <br>
+                         <li>Create a directory called SimpleEjbViewer.war
+ under         $JBOSS/server/default/deploy                             
+folder.&nbsp;          <br>
+                       </li>
+                      <br>
+                         <li>Copy all of the files under $MOJ20/Samples/Server/J2EEServers/JBoss/SimpleEjbViewer 
+           to      $JBOSS/server/default/deploy/SimpleEjbViewer          
+              folder.<br>
+                         </li>
+                                                                        
+          <br>
+                                                                        
+       <li>Now     you   can   start    testing     SimpleEJB      and  
+its     viewer    by    following        instructions      in       <a
+ href="#Testing_SimpleEJB_and_its_viewer">Testing  SimpleEJB       and   its
+ Viewers</a>.<br>
+                                                                        
+       </li>
+                                                                        
+                                                                        
+     
+</ol>
+                                                                        
+                                                                        
+       
+<h3><a name="Deploy_AdvancedEJB_and_its_viewer"></a>Deploy AdvancedEJB  
+         and  its viewer&nbsp;</h3>
+                                                                        
+                                                
+<h4>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Create a database table of mapservice
+                             and setup database service</h4>
+                                                                        
+                                          
+<h5>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; For MySQL
+                             database </h5>
+                                                                        
+                                                                        
+            
+<ol>
+                                                                        
+                                  <li>Download             and   Install
+    MySQL       database         from     <a href="http://www.mysql.com"
+ target="_blank">http://www.mysql.com</a>           by  following    the
+instructions             from  the following     URL                    
+         <a
+ href="http://www.mysql.com/documentation/mysql/bychapter/manual_Installing.html"
+ target="_blank">http://www.mysql.com/documentation/mysql/bychapter/manual_Installing.html</a>.<br>
+                                                                        
+                                                                        
+         <br>
+                                                                        
+                                                                        
+     </li>
+                                                                        
+                                                                        
+  <li>Start           MySQL       and     then     Create       a   table
+      under       database         <tt>test</tt>        (note that the <tt>test</tt>
+database    is one of the default databases created by MySQL installation
+program)with         following         SQL  script,        (use   mysql 
+     client     and   go   to   test      database         with   command
+   of   &#8220;use    test&#8221;  under      mysql prompt).         Please  note   
+ that  the   config           column     data type   is  BLOB.         <br>
+                                                                        
+                                                                        
+         <br>
+                                                                        <tt>
+                                                                        
+       CREATE       TABLE       mapservice           (name       varchar(255) 
+   not  null,               type    varchar(50),             config      blob,
+         output_dir                varchar(255),       </tt><tt>output_url 
+        varchar(255),        </tt><tt>image_format           varchar(5))</tt><br>
+                                                                        
+                                                                        
+                                                                        
+                         </li>
+                                                            <br>
+                                                                        
+                                                                        
+     <li>Download             the JDBC     driver       for    MySQL    
+  from     <a
+ href="http://www.mysql.com/products/connector-j/index.html"
+ target="_blank">http://www.mysql.com/products/connector-j/index.html</a>
+                                                          and   unzip it.
+Then     copy     the    jar    file,      mysql-connector-java-3.0.6-stable-bin.jar,
+                                                     to&nbsp;   $JBOSS/server/default/lib
+            folder.<br>
+                                  </li>
+                                                         <br>
+                                                               <li>Copy 
+   mysql-service.xml                   from     $JBOSS/docs/examples/jca
+                    folder         to   the   $JBOSS/server/default/deploy
+                directory          and       modify         it   as  instructed 
+       here.              <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  a.&nbsp;&nbsp;&nbsp;                     Change     the      following
+        2  lines from            <br>
+                                                                        
+                                                                   <nobr> 
+      &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;            
+       <tt>&lt;config-property                          name="ConnectionURL"
+                             type="java.lang.String"&gt;jdbc:mysql://dell:3306/jbossdb&lt;/config-property&gt;</tt></nobr><br>
+                                                               <nobr>  &nbsp;&nbsp;&nbsp; 
+         &nbsp;&nbsp;&nbsp;              <tt>&lt;config-property         
+   name="DriverClass"     type="java.lang.String"&gt;org.gjt.mm.mysql.Driver&lt;/config-property&gt;</tt></nobr><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  to           <br>
+                                                                        
+                                                              <nobr>    
+       &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;          
+         <tt>&lt;config-property                          name="ConnectionURL"
+                             type="java.lang.String"&gt;jdbc:mysql://localhost/test&lt;/config-property&gt;</tt></nobr><br>
+                                                         <nobr>      &nbsp;&nbsp;&nbsp; 
+        &nbsp;&nbsp;&nbsp;              <tt>&lt;config-property          
+  name="DriverClass"     type="java.lang.String"&gt;com.mysql.jdbc.Driver&lt;/config-property&gt;</tt></nobr><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  b.&nbsp;&nbsp;&nbsp;                     Change     the      following
+        2  lines  from             <br>
+                                                                        
+                                                                 <nobr> 
+       &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;          
+         <tt>&lt;config-property                         name="UserName"
+                        type="java.lang.String"&gt;&lt;/config-property&gt;</tt></nobr><tt><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &lt;config-property               
+          name="Password"                  type="java.lang.String"&gt;&lt;/config-property&gt;</tt><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  to           <br>
+                                                                        
+                                                                <nobr>  
+       &nbsp;&nbsp;             &nbsp;&nbsp;&nbsp;                &nbsp;<tt>&lt;!-- 
+                   config-property    name="UserName"              type="java.lang.String"&gt;&lt;/config-property
+                                            --&gt;</tt></nobr><tt><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;             &nbsp;&lt;!--                      config-property 
+                name="Password"          type="java.lang.String"&gt;&lt;/config-property
+                                              --&gt; </tt></li>
+                                                                        
+                                                                        
+                                                                        
+                      
+  <h5>&nbsp;&nbsp; For Oracle database </h5>
+                                                                        
+                                                                        
+                             <li>Create         a   MAPSERVICE          
+table         using      Oracle&#8217;s      Enterprise    Database           Manager
+    or   SQLPlus.      Please           note   that       the   CONFIG  
+   column      data    type  is    CLOB.<br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                
+    <blockquote><tt> CREATE TABLE "user_name"."MAPSERVICE" ("NAME" VARCHAR2(255) 
+                                                                        NOT 
+  NULL,<br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   "TYPE"       VARCHAR2(50)         
+   NOT     NULL,       "CONFIG"            CLOB  NOT      NULL,         
+           <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   "OUTPUT_DIR"             VARCHAR2(255), 
+              "OUTPUT_URL"                    VARCHAR2(255),             
+       <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   "IMAGE_FORMAT"               VARCHAR2(5) 
+            NOT      NULL,        UNIQUE("NAME"))&nbsp;                  
+      <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   TABLESPACE           "table_space_name"</tt><br>
+                                     </blockquote>
+                                                                      </li>
+                                                                      <li>Get 
+  the  JDBC  driver    from   the   Oracle    server    installation     
+ (usually      classes12.jar       file  from folder    like $ORACLE/ora92/jdbc/lib)
+             and place    it   in the&nbsp;    $JBOSS/server/default/lib
+      folder.<br>
+                                   </li>
+                                                       <br>
+                                                          <li>Copy the oracle-service.xml 
+               from     $JBOSS/docs/examples/jca                        folder 
+        to   the  $JBOSS/server/default/deploy               directory   
+       and     modify        it   as  instructed       here.            
+Please          note    that you  need to replace the <tt>username/password, 
+          youroraclehost     and  yoursid</tt>.     <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  a.&nbsp;&nbsp;&nbsp;                     Change     the      following
+       line  from            <br>
+                                                                        
+                                                                 <nobr> 
+       &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;          
+         <tt>&lt;config-property                          name="ConnectionURL"
+                             type="java.lang.String"&gt;jdbc:oracle:thin:@youroraclehost:1521:yoursid&lt;/config-property&gt;</tt></nobr><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  to         <br>
+                                                        <nobr>          
+       &nbsp;&nbsp;&nbsp;                 &nbsp;&nbsp;&nbsp;          <tt>&lt;config-property 
+                      name="ConnectionURL"                          type="java.lang.String"&gt;jdbc:oracle:thin:username/password@youroraclehost:1521:yoursid&lt;/config-property&gt;</tt></nobr><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  b.&nbsp;&nbsp;&nbsp;                     Change     the      following
+        2  lines  from             <br>
+                                                                        
+                                                               <nobr>   
+       &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;          
+         <tt>&lt;config-property                         name="UserName"
+                        type="java.lang.String"&gt;&lt;/config-property&gt;</tt></nobr><tt><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &lt;config-property               
+          name="Password"                  type="java.lang.String"&gt;&lt;/config-property&gt;</tt><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  to           <br>
+                                                                        
+                                                             <nobr>     
+       &nbsp;&nbsp;             &nbsp;&nbsp;&nbsp;                &nbsp;<tt>&lt;!-- 
+                   config-property    name="UserName"              type="java.lang.String"&gt;&lt;/config-property
+                                            --&gt;</tt></nobr><tt><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;             &nbsp;&lt;!--                  config-property
+                name="Password"              type="java.lang.String"&gt;&lt;/config-property
+                                             --&gt;</tt> <br>
+                                                   &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; 
+           c.&nbsp;&nbsp;&nbsp;           Change  OracleDS to MySqlDS  to 
+ match      the  JNDI name from the jboss.xml         for  AdvancedEJB  in 
+ the following        line.      <br>
+                                       <nobr>           &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;                    <tt>   &lt;attribute    
+name="JndiName"&gt;OracleDS&lt;/attribute&gt;</tt></nobr>               
+           <br>
+                                                        <br>
+                                                         </li>
+                                                                        
+                                                                        
+                                                                        
+                           
+  <h5>&nbsp;&nbsp; For Microsoft SQL database </h5>
+                                                                        
+                                                                        
+                             <li>Create         a   MAPSERVICE          
+table.      Please           note     that     the      CONFIG    column
+  data   type    is    TEXT.<br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                
+    <blockquote><tt> CREATE TABLE mapservice (name varchar(255) not null,
+        type varchar(50),           config text, output_dir varchar(255),
+      </tt><tt>output_url        varchar(255),</tt><tt> image_format    
+      varchar(5))</tt><br>
+                                     </blockquote>
+                                                                      </li>
+                                                                       <li>Download 
+     JDBC   driver    from   Microsoft     web site at <a
+ href="http://www.microsoft.com/sql" target="_blank">  http://www.microsoft.com/sql
+               </a>        (3 jar files, msbase.jar,  mssqlserver.jar and
+msutil.jar,                extracted from either the downloaded  tar file
+or installation     program)        and     place them  in the    $JBOSS/server/default/lib 
+    folder.<br>
+                                  </li>
+                                         <br>
+                                                         <li>Copy     mssql-service.xml 
+                from     $JBOSS/docs/examples/jca                        folder
+         to   the  $JBOSS/server/default/deploy               directory 
+        and      modify        it   as  instructed      here.           
+     <br>
+                                                                        
+                       <nobr>                                           
+          &nbsp;&nbsp;&nbsp;                           a.&nbsp;&nbsp;&nbsp;
+      Replace<tt>MyDatabase       </tt>with   your   MS  SQL   database 
+name   for the following line    (please note that you may have different
+port number and server host name)</nobr><br>
+                                       <nobr>   &nbsp;&nbsp;&nbsp;      
+   &nbsp;&nbsp;&nbsp;                            <tt>&lt;config-property
+                      name="ConnectionURL"                              
+        type="java.lang.String"&gt;jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=MyDatabase&lt;/config-property&gt;</tt></nobr><br>
+                                                     &nbsp;&nbsp;&nbsp; 
+                    b.&nbsp;&nbsp;&nbsp;                              Change
+      the        following   2  lines  from                  <br>
+                                                                        
+                                                                        
+  &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;               
+       <tt><nobr>&lt;config-property                                name="UserName"
+                            type="java.lang.String"&gt;&lt;/config-property&gt;</nobr><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &lt;config-property               
+          name="Password"                  type="java.lang.String"&gt;&lt;/config-property&gt;</tt>
+           <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;&nbsp;                   &nbsp;&nbsp;&nbsp;                
+  to           <br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;             &nbsp;&nbsp;&nbsp;                   &nbsp;<tt><nobr>&lt;config-property
+           name="UserName"                type="java.lang.String"&gt;user_name&lt;/config-property&gt;</nobr><br>
+                                                                        
+                                                                        
+ &nbsp;&nbsp;             &nbsp;&lt;config-property                  name="Password" 
+      type="java.lang.String"&gt;password&lt;/config-property&gt;</tt><br>
+                                                   &nbsp;&nbsp;&nbsp;   
+    c.&nbsp;&nbsp;&nbsp;           Change     MSSQLDS     to MySqlDS  to
+ match  the JNDI name from the    jboss.xml      for  AdvancedEJB    in 
+the following    line.              <br>
+                                                  &nbsp;&nbsp;&nbsp;    
+     &nbsp;&nbsp;&nbsp;                    <tt><nobr>      &lt;attribute
+    name="JndiName"&gt;MSSQLDS&lt;/attribute&gt;</nobr></tt>            
+           <br>
+                                                           </li>
+                                                                        
+                                                                        
+                                                                        
+                                                               
+  <h4>Deploy AdvancedEJB and its viewer</h4>
+                                                                        
+                                                                        
+   <li>Copy        CatalogEjb.jar      and AdvancedEjb.jar files       from 
+$MOJ20/Samples/Server/J2EEServers/JBoss               folder to   $JBOSS/server/default/deploy 
+                      folder.<br>
+                   </li>
+                   <br>
+                         <li>Create a AdvancedEjbViewer.war directory under 
+    $JBOSS/server/default/deploy         directory.<br>
+                         </li>
+                       <br>
+                         <li>Copy all files       from $MOJ20/Samples/Server/J2EEServers/JBoss/AdvancedEjbViewer 
+              folder to   $JBOSS/server/default/deploy/AdvancedEjbViewer.war 
+                         folder.<br>
+                         </li>
+                                                                        
+       <br>
+                                                                        
+        <li>Now     you   can   start    testing     AdvancedEJB       and
+   its    viewer    by  following         instructions      in      <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with">Testing     AdvancedEJB
+                                       and its viewer with stand     alone
+           admin                   tool</a>, or continue deploying a web
+browser-based              admin   tool        for    AdvancedEJB    in next
+section.<br>
+                                                                        
+       </li>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+         
+  <h4>Deploy Browser-based AdvancedEJB Admin Tool</h4>
+                                                                        
+                                                                        
+   <li>Download            the     com.oreilly.servlet                  
+  from     <a href="http://www.servlets.com/cos/index.html"
+ target="_blank">http://www.servlets.com/cos/index.html</a>              
+                           and       unzip      the file   and    copy  
+  the    cos.jar         file       to  the $MOJ20/Samples/Server/J2EEServers/JBoss/AdvanedEjbAdmin/WEB-INF/lib 
+                                                                      and 
+re-create          the    AdvancedEjbAdmin.war                     file  
+  that      packs           all      the    contents         under      
+$MOJ20/Samples/Server/J2EEServers/JBoss/AdvanedEjbAdmin.<br>
+                                                                        
+                                                                        
+     </li>
+                                                                        
+                                                    <br>
+                                                                        
+                                                                        
+  <li>Create      a  directory      called AdvancedEjbAdmin.war under&nbsp;$JBOSS/server/default/deploy 
+                              folder.<br>
+                       </li>
+                      <br>
+                         <li>Copy     all files under&nbsp;$MOJ20/Samples/Server/J2EEServers/JBoss/AdvanedEjbAdmin 
+               to   $JBOSS/server/default/deploy/AdvancedEjbAdmin.war    
+                    folder.<br>
+                                                                        
+                                                                        
+                                                                        
+                            </li>
+                       <br>
+                                                                        
+        <li>Now     you   can   start    testing     AdvancedEJB       and
+   its    viewer    by  following         instructions      in      <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with_web">Testing     AdvancedEJB
+                                                             and its viewer
+      with     web-based         admin      tool</a>.<br>
+                                                                        
+       </li>
+                                                                        
+                                                                        
+    
+</ol>
+                                                                        
+                                                                        
+         
+<h2><a name="Testing_JSP_viewers_and_map_EJBs_and"></a>Testing JSP viewers, 
+                                                                         and
+   map    EJBs     and    their      viewers</h2>
+                                                                        
+                                                                        
+     
+<h3><a name="Test_JSP_Viewers"></a>Test JSP viewers</h3>
+                                                                        
+                                                                        
+      
+<ol>
+                                                                        
+        <li>Open     a  browser     and   type   in  the   following    
+ URL,     <a href="http://localhost:8080/JspViewer/viewer.htm"
+ target="_blank"> http://localhost:8080/JspViewer/viewer.htm,&nbsp;</a>  
+           for testing    JspViewer.<br>
+                                                                        
+        </li>
+                                  <br>
+                                                                        
+        <li>Open     a  browser     and   type   in  the   following    
+ URL,    <a href="http://localhost:8080/JspServletViewer/viewer.htm"
+ target="_blank"> http://localhost:8080/JspServletViewer/viewer.htm,&nbsp;
+                    </a>              for    testing   JspServletViewer.<br>
+                                                                        
+        </li>
+                                                                        
+                                                                        
+    
+</ol>
+                                                                        
+                                                                        
+      
+<h3><a name="Testing_SimpleEJB_and_its_viewer"></a>Testing SimpleEJB and 
+its viewer</h3>
+                                                                        
+                                                                        
+     
+<ol>
+                                                                        
+                                                                       <li>Type 
+       the     following           URL     in   a   browser,         <a
+ href="http://localhost:8080/SimpleEjbViewer/viewer.htm" target="_blank">http://localhost:8080/SimpleEjbViewer/viewer.htm</a>, 
+                                                     you   should  see the 
+ following          screen       shot      that     display          a dropdown 
+           list          showing       a list  of   map  services.       
+        <br>
+                                                                        
+                                                                        <br>
+                                                                        
+                                                     <img
+ src="images/image001.png" alt="" width="894" height="718">
+                                                                        
+                                                                       <br
+ clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                                                           </li>
+                                                                        
+                                                           <li>Select   
+  &#8216;usa1&#8217;       and     click       &#8216;Get     Map     Service&#8217;         and
+    you    should          see  the       usa map     shown    in  the  browser.
+                                                           <br>
+                                                                        
+                                              <br>
+                                                                        
+                                           <img
+ src="images/image003.png" alt="" width="893" height="718">
+                                                                        
+                                                                     <br
+ clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                                         </li>
+                                                                        
+                                                                        
+    
+</ol>
+                                                                        
+                                                                        
+       
+<h3><a name="Testing_AdvancedEJB_and_its_viewer_with"></a>Testing AdvancedEJB 
+                                                                        and 
+  its    viewer       with     stand      alone      admin      tool</h3>
+                                                                        
+                                                                        
+     
+<ol>
+                                                                        
+                                                                      <li>To
+     run     the     standalone           MOJ     Admin       tool,     
+ you       need       to     make      sure         that    the JBoss   
+   client      lib  (they     are jbossall-client.jar,            jnp-client.jar
+   and     log4j.jar     from  $JBOSS/client     folder)     are    in  your 
+ class       path.      Open   a  command     window,     go  to the    directory, 
+    $MOJ20/Samples/Server/J2EEServers/JBoss.                             
+                              Type the following     command: <br>
+                 <br>
+              for <b>Windows</b><br>
+                                                   <tt><nobr>java -classpath
+  $JBOSS/client/jbossall-client.jar;$JBOSS/client/jnp-client.jar;$JBOSS/client/log4j.jar;AdvancedEjbAdminApp.jar 
+                  com.esri.svr.admin.AdvancedEjbAdmin</nobr></tt><br>
+                                           <br>
+                                                                        
+  for       <b>Linux     and Unix</b><br>
+               <tt><nobr>java -classpath $JBOSS/client/jbossall-client.jar:$JBOSS/client/jnp-client.jar:$JBOSS/client/log4j.jar:AdvancedEjbAdminApp.jar 
+                  com.esri.svr.admin.AdvancedEjbAdmin</nobr></tt><br>
+                  <br>
+                                                                        
+       You    should          see      a   Java       application       
+      running        with   the   following      screen      shot:      
+                                       <br>
+                                                                        
+                                                  <br>
+                                                                        
+                                           <img
+ src="images/image005.png" alt="" width="826" height="516">
+                                                                        
+                                                                  <br
+ clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                                        </li>
+                                                                        
+                                                           <li>Click    
+ on   the     &#8220;Add     Services&#8221;           on   the     left     pane   
+ to  add    a    new     service.    Fill     out  entries        as shown 
+   in  the    following       screen     shot,   where     the OutputURL 
+        is  only required      if you  are using    jCIFS  or NFS   file system
+        to   output   map      images.  Click on  the     <b>Add</b>  button
+  to add this new serviec   to the database.  If the  service  info has been
+   successfully added into   the database, you  should  see message  saying
+  that "The service 'world'  has been successfully  added".&nbsp;       
+                                             <br>
+                                                                        
+                                                  <br>
+                                                                        
+                                            <img
+ src="images/image007.png" alt="" width="826" height="516">
+                                                                        
+                                                                     <br
+ clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                                        </li>
+                                                                        
+                                                           <li>Click on "List 
+  Services"      on  the   left   pane   to show all deployed services. <br>
+                                                                        
+                                                  <br>
+                                                                        
+                                           <img
+ src="images/image009.png" alt="" width="826" height="516">
+                                                                        
+                                                                 <br
+ clear="all">
+                                                                        
+                                                                     <br>
+                                                                        
+                                        </li>
+                                                                        
+                                                           <li>Select a service 
+   name   such   as  world,    then   click       on  the <b>Show Service 
+Details</b>          button        to   show      information            
+  about    the    selected          service.                            
+                                       <br>
+                                                                        
+                                                  <br>
+                                                                        
+                                            <img
+ src="images/image011.png" alt="" width="826" height="516">
+                                &nbsp;<br>
+                               </li>
+                                <br>
+                                  <li>To    test   a  service,     open 
+ a   browser           and       type       the    URL     shown        in 
+  the bottom  of   the   above screen       shot&nbsp;   (<a
+ href="http://localhost:8080/AdvancedEjbViewer/viewer.htm?ServiceName=world"
+ target="_blank">http://localhost:8080/AdvancedEjbViewer/viewer.htm?ServiceName=world</a>).
+                                                                       <br>
+                                                                        
+                  </li>
+                                                                        
+                                                                        
+     
+</ol>
+                                                                        
+                                                                        
+      
+<h3><a name="Testing_AdvancedEJB_and_its_viewer_with_web">Testing AdvancedEJB 
+                                                                     and its
+   viewer       with     web-based          admin      tool</a></h3>
+                                                                        
+                                                                        
+     
+<ol>
+                                                                        
+                                                                     <li>Open 
+      a   browser         and     type     in   the     following        
+  URL,       <a href="http://localhost:8080/AdvancedEjbAdmin/index.html"
+ target="_blank">http://localhost:8080/AdvancedEjbAdmin/index.html</a>.<br>
+                                                                        
+                                                  <br>
+                                                                        
+                                           <img
+ src="images/image013.png" alt="" width="842" height="617">
+                                                                        
+                                                                     <br>
+                                                                        
+     <br>
+                                                                        
+                                        </li>
+                                                                        
+                                                           <li>Click    
+ "Add     Service",          type     in   service         name,       service
+        type        (image           for      now),  image       format 
+ (PNG,         JPG  etc),      output         directory        (you  need
+   to   type        in   the   full    path       of $JBOSS/server/default/deploy/output.war);
+                                        then  enter     an  AXL file name
+or   browse       to   a  directory                to select         one.
+    Then      click    on   the   "Add     Service"   again       to  upload
+ the   service        info   along          with    the AXL  doc  to   the
+   MySQL   database.       Click   on <b>Add</b>     button     to add  
+service.                                         If  the   service info has
+been successfully    added    into the database,   you should    see message
+saying that "The   service  world  has been successfully   added".<br>
+                                                                        
+                                                  <br>
+                                                                        
+                                           <img
+ src="images/image015.png" alt="" width="842" height="617">
+                                                                        
+    <br clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                                        </li>
+                                                                        
+                                                            <li>Click   
+  on   the     "List       Service",           you     should       see 
+   a  list     of     service           names.                          
+                         <br>
+                                                                        
+                                                  <br>
+                                                                        
+                                             <img
+ src="images/image017.png" alt="" width="828" height="629">
+                                                                        
+                                                                     <br
+ clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                                      </li>
+                                                                        
+                                                            <li>Click   
+  on       <u>world</u>,           you     should        see     the    
+service           info    you       just        entered.<br clear="all">
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+               
+    <p>       <img src="images/image019.png" alt="" width="842"
+ height="617">
+                                                                        
+                                                                     <br
+ clear="all">
+                                                                        
+                                                                 <br>
+                                                                        
+                        </p>
+                                                                        
+                                                            </li>
+                                                                        
+                                                            <li>Click   
+  on   the     "Show       world       Map",       you     should       see
+    another          browser             window     opened        with  
+ a  JSP   viewer      running.&nbsp;               <br>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+               
+    <p>               <img src="images/image021.png" alt="" width="1007"
+ height="730">
+                                                                        
+                                </p>
+                                                                        
+                                         </li>
+                                                                        
+                                                                        
+    
+</ol>
+                                                                        
+                                                                        
+<br>
+                                                                        
+  <br>
+                                                                        
+     <br>
+                                                                     <br>
+                                                                      <br>
+                                                                    <br>
+                                                                        
+           <br>
+                                                <br>
+                          <br>
+                             <br>
+                <br>
+                 <br>
+              <br>
+         <br>
+        <br>
+       <br>
+          <br>
+ 
+</body>
+</html>

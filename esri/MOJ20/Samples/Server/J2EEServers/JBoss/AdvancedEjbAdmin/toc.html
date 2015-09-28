@@ -1,0 +1,132 @@
+
+<body bgcolor='lightblue'>
+<head>
+<script language="JavaScript" type="text/javascript">
+
+var url = "/AdvancedEjbAdmin/servlet/CatalogServlet";
+
+function listservices() {
+   theForm = document.forms[0];
+   theForm.action = url;
+   theForm.target = "data";
+   theForm.cmd.value="ListServices";
+
+   //alert("list map services=>" + theForm.action);
+
+   theForm.submit();      
+}
+
+function addservice() {
+   //alert("add service 1 ");
+   var theForm = parent.data.document.forms[0];
+
+   if (theForm != null) {
+       //alert("can add service=> " + theForm.canAdd.value);
+       var canAdd = theForm.canAdd.value;
+       if (canAdd == "false") {
+          //alert("loading addservice jsp");
+	    //parent.data.document.location = "AddService.jsp";
+	    parent.data.document.location = "AddService.html";
+       } else { 
+	  var name = theForm.name.value;
+	  var type = theForm.type.value;
+	  var config = theForm.config.value;
+	  var filename = theForm.axlfile.value;
+
+	  if (name==null || name=="") {
+          	alert("Please enter new service name!");	
+	  }
+ 	
+	  else if (type==null || type=="") {
+          	alert("Please enter new service type!");
+	  }
+
+	  else if ( (config==null || config=="") && (filename==null || filename=="")) {
+		alert("Please enter AXL configuration document or file name!");
+	  }
+
+	  else { 
+	  	theForm.action = url;
+	  	//theForm.cmd.value = "AddSevice";
+	  	theForm.submit();
+	  }
+	
+       }
+   } else { 
+	//alert("Loading AddService.html");
+      //parent.data.document.location = "AddService.jsp";
+	parent.data.document.location = "AddService.html";
+   }
+}
+
+function removeservice() {
+   //alert("remove service");
+   var theForm = parent.data.document.forms[0];
+
+   //alert(theForm==null);
+
+   if (theForm != null) {
+       //alert(theForm.canRemoveRefresh.value);
+       var canRemove = theForm.canRemoveRefresh.value;
+       if (canRemove == "true") {
+	  var name = theForm.name.value;
+
+	  if (name==null || name=="") {
+          	alert("Please enter new service name!");
+
+	  } else {
+	  	theForm.action = url;
+	  	theForm.cmd.value = "RemoveService";
+	  	theForm.submit();
+	  }
+       }
+   }   
+
+}
+
+function refreshservice() {
+   //alert("refresh service");
+   var theForm = parent.data.document.forms[0];
+   
+   //alert(theForm==null);
+
+   if (theForm != null) {
+      //alert(theForm.canRemoveRefresh.value);
+      var canRefresh = theForm.canRemoveRefresh.value;
+      if (canRefresh == "true") {
+	  var name = theForm.name.value;
+	  var config = theForm.config.value;
+	  var type = theForm.type.value;
+
+	  if (name==null || name=="") {
+          	alert("Please enter new service name!");
+
+	  } else if (type==null || type=="") {
+          	alert("Please enter new service type!");
+
+	  } else if (config==null || config=="") {
+		alert("Please enter AXL configuration document!");
+
+	  } else { 
+	  	theForm.action = url;
+	  	theForm.cmd.value = "RefreshService";
+	  	theForm.submit();
+	  }
+      }
+   }
+}
+
+</script>
+</head>
+<a href="JavaScript:listservices();" ><img src="images/listservices.gif"/></a>
+<p/>
+<a href="JavaScript:addservice();" ><img src="images/addservice.gif"/></a><br/>
+<p/>
+<a href="JavaScript:removeservice();" ><img src="images/removeservice.gif"/></a><br/>
+<p/>
+<a href="JavaScript:refreshservice();" ><img src="images/refreshservice.gif"/></a><br/>
+
+<form>
+<input type="hidden" name="cmd" value="">
+</form>
+</body>

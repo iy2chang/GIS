@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE weblogic-ejb-jar PUBLIC 
+'-//BEA Systems, Inc.//DTD WebLogic 7.0.0 EJB//EN' 
+'http://www.bea.com/servers/wls700/dtd/weblogic-ejb-jar.dtd'>
+
+<weblogic-ejb-jar>
+
+  <weblogic-enterprise-bean>
+    <ejb-name>MapServiceII</ejb-name>
+    <jndi-name>ejb/MapServiceII</jndi-name>
+  </weblogic-enterprise-bean>
+
+  <weblogic-enterprise-bean>
+    <ejb-name>LayoutService</ejb-name>
+    <jndi-name>ejb/LayoutService</jndi-name>
+  </weblogic-enterprise-bean>
+
+  <weblogic-enterprise-bean>
+    <ejb-name>ServiceCatalogBean2</ejb-name>
+    <entity-descriptor>
+	<entity-cache>
+		<read-timeout-seconds>1200</read-timeout-seconds>
+		<concurrency-strategy>ReadOnly</concurrency-strategy> 
+	</entity-cache>
+    </entity-descriptor>
+    <reference-descriptor>
+      <resource-description>
+        <res-ref-name>jdbc/MapServiceDS</res-ref-name>
+        <jndi-name>MySQLDS</jndi-name>
+      </resource-description>
+    </reference-descriptor>
+    <local-jndi-name>ejb/ServiceCatalogLocalHome2</local-jndi-name>
+  </weblogic-enterprise-bean>
+
+</weblogic-ejb-jar>
+

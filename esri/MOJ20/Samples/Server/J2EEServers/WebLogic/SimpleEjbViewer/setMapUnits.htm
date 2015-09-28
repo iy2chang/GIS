@@ -1,0 +1,125 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<HTML>
+<HEAD>
+	<TITLE>Untitled</TITLE>
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+		var preUnit = parent.MapFrame.ScaleBarUnits;
+		
+		function setDUnits() {
+			var f = document.forms[0];
+			var i = f.newDUnits.selectedIndex;
+			parent.MapFrame.ScaleBarUnits = f.newDUnits.options[i].value;
+			document.location = "text.htm";
+		}
+		
+		function cancelClick() {
+			parent.MapFrame.ScaleBarUnits = preUnit;
+			document.location = "text.htm";
+		}
+	</SCRIPT>
+</HEAD>
+
+<BODY BGCOLOR="Black" TEXT="White" TOPMARGIN=0 onload="window.focus(); " LEFTMARGIN=0>
+	<DIV ALIGN="center">
+		<FONT FACE="Arial" SIZE="-2"><B>
+		<FORM ACTION="" NAME="Measure">
+				<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+					var t = parent.MapFrame;
+
+					var f = document.Measure;
+					document.writeln('<TABLE CELLSPACING="2" NOWRAP BGCOLOR="Gray" WIDTH=100%>');
+					document.writeln('	<TR>');
+					document.writeln('		<TH COLSPAN="4" ALIGN="CENTER">');
+					document.writeln('			<FONT FACE="Arial" SIZE="-1"><B>' + t.buttonList[32] + '</B></FONT>');
+					document.writeln('		</TH>');
+					document.writeln('	</TR>');
+					document.writeln('	<TR>');
+						if (t.setMapUnits) {
+							document.writeln('<td>');
+							document.writeln('<font face="Arial" size="-2">' + t.titleList[17] + '</font>');
+								
+									
+									//document.writeln(parent.MapFrame.ScaleBarUnits);
+									document.writeln('<select name="newMUnits">');
+									
+									document.write('<option value="FEET"');
+									if (t.MapUnits=="FEET") document.write(' selected');
+									document.write('>' + t.unitList[1]);
+									
+									
+									document.write('<option value="METERS"');
+									if (t.MapUnits=="METERS") document.write(' selected');
+									document.write('>' + t.unitList[3]);
+									
+									document.write('<option value="DEGREES"');
+									if (t.MapUnits=="DEGREES") document.write(' selected');
+									document.write('>' + t.unitList[0]);
+									
+									document.writeln('</select>');
+								
+							document.writeln('</td>');
+						}
+					
+						document.writeln('<TD>');
+						document.writeln('<FONT FACE="Arial" SIZE="-2">' + t.titleList[31] + '</FONT>');
+						
+							var t;
+							if (opener) {
+								if (opener.name=="MapFrame") {
+									t = opener.parent.MapFrame;
+								} else {
+									t = opener;
+								}
+							} else {
+								
+								if (parent.MapFrame) {
+									t = parent.MapFrame;
+								} else {
+									t=document;
+								}
+							}
+							var f = document.Measure;
+							//document.writeln(parent.MapFrame.ScaleBarUnits);
+							document.writeln('<select name="newDUnits">');
+							
+							document.write('<option value="FEET"');
+							if (t.ScaleBarUnits=="FEET") document.write(' selected');
+							document.write('>' + t.unitList[1]);
+							
+							document.write('<option value="MILES"');
+							if (t.ScaleBarUnits=="MILES") document.write(' selected');
+							document.write('>' + t.unitList[2]);
+							
+							document.write('<option value="METERS"');
+							if (t.ScaleBarUnits=="METERS") document.write(' selected');
+							document.write('>' + t.unitList[3]);
+							
+							document.write('<option value="KILOMETERS"');
+							if (t.ScaleBarUnits=="KILOMETERS") document.write(' selected');
+							document.write('>' + t.unitList[4]);
+							
+							document.writeln('</select>');
+						
+							document.writeln('</TD>');
+							document.writeln('<TD>');
+							document.writeln('	<INPUT TYPE="Button" NAME="setDU" VALUE="' + t.buttonList[32] + '" onclick="setDUnits()">');  
+							document.writeln('</TD>');
+							document.writeln('<TD>');
+							document.writeln('	&nbsp;&nbsp;');
+							document.writeln('	<INPUT TYPE="Button" NAME="done" VALUE="' +  t.buttonList[49] + '" onclick="cancelClick()">');
+							document.writeln('	&nbsp;&nbsp;');
+							document.writeln('</TD>');
+					</SCRIPT>
+				</TR>
+			</TABLE>
+		</FORM>
+		</B></FONT>
+	</DIV>
+</BODY>
+</HTML>
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HTML>

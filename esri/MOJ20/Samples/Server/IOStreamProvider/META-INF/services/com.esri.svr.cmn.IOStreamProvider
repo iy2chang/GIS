@@ -1,0 +1,5 @@
+# This is default IOStreamProvider
+com.esri.svr.plgin.FileIOStreamProvider
+#
+# Un comment the following line to support jCIFS, which requires a jcifs_xxx.jar file in your JRE's ext folder
+# com.esri.svr.plgin.JcifsIOStreamProvider

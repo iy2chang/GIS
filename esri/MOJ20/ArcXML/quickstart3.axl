@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ARCXML version="1.1">
+	<CONFIG>
+		<ENVIRONMENT>
+			<LOCALE language="en" country="US"/>
+			<UIFONT name="Dialog"/>
+			<SCREEN dpi="96"/>
+			<SEPARATORS/>
+		</ENVIRONMENT>
+		<MAP>
+			<PROPERTIES>
+				<ENVELOPE minx="-178.21502685546875" miny="18.924781799316406" maxx="-66.9698486328125" maxy="71.40664672851562" reaspect="false"/>
+				<MAPUNITS units="decimal_degrees"/>
+			</PROPERTIES>
+			<WORKSPACES>
+				<SHAPEWORKSPACE name="ws-0" directory="C:\ESRI\MOJ20\Samples\Data\USA"/>
+			</WORKSPACES>
+			<LAYER name="states" id="0" type="featureclass">
+				<DATASET workspace="ws-0" name="states" type="polygon"/>
+				<SIMPLERENDERER>
+					<SIMPLEPOLYGONSYMBOL fillcolor="213,235,203" boundarycaptype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="capitals" id="1" type="featureclass">
+				<DATASET workspace="ws-0" name="capitals" type="point"/>
+				<SIMPLERENDERER>
+					<SIMPLEMARKERSYMBOL color="72,9,41" width="6"/>
+				</SIMPLERENDERER>
+			</LAYER>
+		</MAP>
+	</CONFIG>
+</ARCXML>

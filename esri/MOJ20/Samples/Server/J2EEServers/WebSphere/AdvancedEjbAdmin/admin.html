@@ -1,0 +1,88 @@
+<html>
+<center>
+
+<table border="0" valign="top">
+<tr>
+<td valign="top">
+<img src="mojserveradmin.png" valign="top">
+</td>
+</tr>
+</table>
+</center>
+
+<table columns="2" valign="top">
+
+<td>
+<table column="1" border="0" bordercolor="blue">
+
+<tr>
+<td align="center" bordercolor="blue">
+<a href="javascript:setSubmitTool('nw')"><img src="listservices.gif" border="0"></a>
+</td>
+</tr>
+
+<tr>
+<td align="center" bordercolor="blue">
+<a href="javascript:setSubmitTool('north')"><img src="addservice.gif" border="0"></a>
+</td>
+</tr>
+
+<tr>
+<td bordercolor="blue">
+<a href="javascript:setSubmitTool('ne')"><img src="removeservice.gif" border="0"></a>
+</td>
+</tr>
+
+<tr>
+<td align="center" bordercolor="blue">
+<a href="javascript:setSubmitTool('west')"><img src="refreshservice.gif" border="0"></a>
+</td>
+</tr>
+
+</table>
+</td>
+
+<form>
+
+<td>
+<table column="2" border="0" bordercolor="yellow" valign="top">
+<tr>
+<td>List of Services:</td>
+<td>
+<select name="service">
+    <option value="">Select a map service from the list</option>
+    <option value="service_name">world</option>
+    <option value="service_name">usa</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Service Name:</td><td><input name="name" value="world"></td>
+</tr>
+<tr>
+<td>Service Type:</td><td><input name="type" value="image"></td>
+</tr>
+<tr>
+<td>Image Format: </td><td><input name="format" value="JPEG"></td>
+</tr>
+<tr>
+<td>Output URL: </td><td><input name="output_url" value="NULL"></td>
+</tr>
+<tr>
+<td>Output Directory: </td><td><input name="output_dir" value="C:/temp/Output"> </td>
+</tr>
+<tr>
+<td colspan="2">Service Config Doc: </td>
+</tr>
+<tr>
+<td colspan="2"><textarea name="config" rows=5 cols=60></textarea></td>
+</tr>
+</table>
+</td>
+
+</form>
+
+</table>
+
+
+</html>

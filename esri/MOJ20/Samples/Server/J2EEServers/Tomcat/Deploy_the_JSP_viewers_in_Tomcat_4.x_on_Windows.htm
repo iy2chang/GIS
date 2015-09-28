@@ -1,0 +1,207 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:w="urn:schemas-microsoft-com:office:word"
+ xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+  <title>Deploy the JSP viewers in Tomcat 4 on Windows</title>
+                                                                        
+                    		 		                                               
+                    
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+                        		          		         		                       
+                                             
+  <meta name="Author" content="Frank Xia">
+</head>
+  <body lang="EN-US" link="blue" vlink="blue" style="">
+                        		                       
+<div class="Section1">                    
+<div align="center"> </div>
+                                       
+<h1 align="center"> 			  <b><span style="font-size: 16pt;">Deploy the JSP 
+         viewers in Apache  					with Tomcat 4 &nbsp;on Windows</span></b><br>
+                    </h1>
+                                         
+<p class="MsoNormal">    				Note: <i>$<span
+ style="font-family: 'Courier New';">MOJ</span></i>  refers  				to the  
+       folder in which MapObjects Java Edition Version 2.0 has  been installed
+         				and <b>$CATALINA_HOME</b> refers to the folder in which  the
+Tomcat       has been  				installed. 				&nbsp;</p>
+                        			                       
+<ol start="1" type="1">
+                        				<li class="MsoNormal" style=""> 				Install MapObject 
+    Java   Edition    2.0. 				<br>
+   </li>
+                 <br>
+                         <li class="MsoNormal" style=""> 					Download and
+ install     Tomcat    4.1.18    from <a
+ href="http://jakarta.apache.org/tomcat/index.html" target="_blank"> 						www.apache.org</a>
+     				if you haven't done it yet.        				<br>
+   </li>
+                 <br>
+                         <li class="MsoNormal" style=""> 					Create a folder 
+  for   MOJ   to  output    the generated images to, and for the JSP  					viewers 
+    to pick  up these  images  from, say at 'C:\<span
+ style="font-family: 'Courier New';">temp\output</span>'.     				<br>
+   </li>
+                 <br>
+                         <li class="MsoNormal" style=""> 					Add the following 
+   configuration        info  to the 					<span
+ style="font-family: 'Courier New';">server.xml</span>        					located 
+    in your Tomcat installation's conf directory, 					<span
+ style="font-family: 'Courier New';">$CATALINA_HOME/conf</span>. 				<br>
+         <br>
+                        			                   			                       
+                                         
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; margin-left: 0.01in; width: 100%;">
+                        				<tbody>
+                           <tr>
+                        					<td valign="top"> 						                   
+                                                                        
+                                                                        
+                                     
+          <p class="MsoNormal"><span style="font-family: 'Courier New';">&lt;!-- 
+           MOJ20   Context --&gt; <br>
+                          &lt;Context path="/output" docBase="C:\temp\output" 
+    debug="0"      privileged="true"    /&gt;<o:p></o:p></span></p>
+                        					</td>
+                        				</tr>
+                        				<tr>
+                        					<td valign="top"> 						                   
+                                                                        
+                                                                        
+                                     
+          <p class="MsoNormal"><i>Note : Please make sure you put this context 
+           right after  								Tomcat's Root Context<o:p></o:p></i></p>
+                        					</td>
+                        				</tr>
+                        			                                             
+                                                                 
+      </tbody>                                                           
+     
+    </table>
+        </li>
+           <br>
+                        			                   				<li class="MsoNormal"
+ style="">  					Copy   the '<span style="font-family: 'Courier New';">JspViewer</span>' 
+    and '<span style="font-family: 'Courier New';">JspServletViewer</span>' 
+   					directories        from the $<i><span
+ style="font-family: 'Courier New';">MOJ</span></i><span
+ style="font-family: 'Courier New';">\Samples\Server\J2EEServers\</span>' 
+           to the '<span style="font-family: 'Courier New';">$CATALINA_HOME\webapps</span>' 
+            				directory.&nbsp; 		<br>
+         		</li>
+               <br>
+                         <li class="MsoNormal" style=""> 					Replace the 
+    <i>   						<span style="font-family: 'Courier New';">$MOJ </span></i>string 
+within   the  					two          sample AXL files (usa.axl and world.axl) with
+the  MOJ 2.0 install  directory         					such as <i> 						<span
+ style="font-family: 'Courier New';">'C:/ESRI/MOJ20'</span></i> <br>
+                         			                     		<br>
+    	                                                             
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; margin-left: 0.01in; width: 100%;">
+                        				<tbody>
+                           <tr>
+                        					<td valign="top"> 						                   
+                                                                        
+                                                                        
+                                 
+          <p class="MsoNormal"><span style="font-family: 'Courier New';">&lt;ARCXML&gt;<br>
+                          ...<br>
+                          &lt;WORKSPACES&gt;<br>
+                          &lt;SHAPEWORKSPACE name="ws-0" directory="$<i>MOJ</i>/Samples/Data/USA"
+              /&gt;<br>
+                          &lt;/WORKSPACES&gt;<br>
+                          ...<br>
+                          &lt;/ARCXML&gt;</span></p>
+                        					</td>
+                        				</tr>
+                        			                                             
+                                                             
+      </tbody>                                                          
+  
+    </table>
+                        			<br>
+        </li>
+                        				<li class="MsoNormal" style=""> 					Modify the&nbsp; 
+    '<span style="font-family: 'Courier New';">$CATALINA_HOME\webapps\JspViewer\WEB-INF\classes\mapservices.xml</span>' 
+            					and the&nbsp; '<span
+ style="font-family: 'Courier New';">$CATALINA_HOME\webapps\JspServletViewer\WEB-INF\classes\mapservices.xml</span>' 
+            					configuration files so that it looks something like this:&nbsp; 
+       				                    			                       			             
+                     <br>
+       <br>
+                     
+    <table border="0" cellpadding="0" width="100%" bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; margin-left: 0.01in; width: 100%;">
+                        				<tbody>
+                           <tr>
+                        					<td valign="top"> 						                   
+                                                                        
+                                                                        
+                         
+          <p class="MsoNormal"><span style="font-family: 'Courier New';">&lt;services&gt;<br>
+                          &lt;name&gt;usa1&lt;/name&gt;<br>
+                          ...<br>
+                          &lt;output_dir&gt;C:/temp/output&lt;/output_dir&gt;<br>
+                          &lt;output_url&gt;&lt;/output_url&gt;<br>
+                          &lt;axl_file&gt;$<i>MOJ</i>/Samples/Server/J2EEServers/AXLFiles/usa.axl&lt;/axl_file&gt;<br>
+                          ...<br>
+                          &lt;name&gt;world2&lt;/name&gt;<br>
+                          ...<br>
+                          &lt;output_dir&gt;C:/temp/output&lt;/output_dir&gt;<br>
+                          &lt;output_url&gt;&lt;/output_url&gt; &lt;axl_file&gt;$<i>MOJ</i>/Samples/ServerSamples/J2EEServers/AXLFiles/world.axl&lt;/axl_file&gt;<br>
+                          ...<br>
+                          &lt;/services&gt;</span></p>
+                        					</td>
+                        				</tr>
+                        			                                             
+                                                     
+      </tbody>                                                     
+    </table>
+      <br>
+     </li>
+                        				<li class="MsoNormal" style=""> 					Copy all 
+the   jar   and   resources      files from $<i><span
+ style="font-family: 'Courier New';">MOJ</span></i><span
+ style="font-family: 'Courier New';">\lib and </span><i>$MOJ</i>\Samples\Server\IOStreamProvider\esri_iostreamprovider.jar 
+            					into the 					<span style="font-family: 'Courier New';">$CATALINA_HOME\shared\lib</span>
+            				folder.&nbsp; 				<br>
+   </li>
+                    <br>
+                 <li class="MsoNormal" style=""> 					Stop and restart the
+ Tomcat.        					<span style="font-family: 'Courier New';">$CATALINA_HOME\bin</span>,
+         and run the    					stop script; '<span
+ style="font-family: 'Courier New';">shutdown.bat'</span>    					and restart
+         using the startup script; '<span
+ style="font-family: 'Courier New';">startup.bat</span>'      				<br>
+  </li>
+              <br>
+                         <li class="MsoNormal" style=""> 					Open a browser
+  and   type  one of  the   following    url, <br>
+            </li>
+                        			                      			            <a
+ href="http://localhost:8080/JspViewer/viewer.htm">http://localhost:8080/JspViewer/viewer.htm</a> 
+           				 or              	<br>
+          		              <a
+ href="http://localhost:8080/JspServletViewer/viewer.htm">http://localhost:8080/JspServletViewer/viewer.htm</a> 
+           				 or        <br>
+                			              <a
+ href="http://yourlocalmachinename:8080/JspViewer/viewer.htm">http://yourlocalmachinename:8080/JspViewer/viewer.htm</a> 
+          or  <br>
+                      			              <a
+ href="http://yourlocalmachinename:8080/JspServletViewer/viewer.htm">http://yourlocalmachinename:8080/JspServletViewer/viewer.htm</a>
+            			             			     		            
+</ol>
+            </div>
+                        	<br>
+                        <br>
+                         <br>
+                             <br>
+   
+</body>
+</html>

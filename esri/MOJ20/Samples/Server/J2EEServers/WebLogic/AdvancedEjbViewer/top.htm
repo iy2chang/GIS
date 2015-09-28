@@ -1,0 +1,23 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<HTML>
+<HEAD>
+	<TITLE>Untitled</TITLE>
+	<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+		var theTitle = "";
+		if (parent.theTitle != null) theTitle = parent.theTitle;
+		var parentTitle = parent.document.title;
+		//alert(parentTitle);
+		if ((parentTitle!=null) || (parentTitle!="")) theTitle = parentTitle;
+	</SCRIPT>
+</HEAD>
+
+<BODY BGCOLOR="Silver" LEFTMARGIN=0 TOPMARGIN=0 TEXT="White" BACKGROUND="images/grad_gray.jpg">
+	<IMG SRC="images/mojava32.gif" WIDTH=33 HEIGHT=30 HSPACE=5 VSPACE=0 BORDER=0 ALT="" ALIGN="left" >
+	<!--- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --->
+	<FONT FACE="Arial" SIZE="+2"><B>
+	<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+		document.writeln(theTitle);
+	</SCRIPT>
+	</B></FONT>
+</BODY>
+</HTML>

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Introduction to MOJ20 Server Samples</title>
+                                                       
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+                               
+  <meta name="author" content="Frank Xia">
+</head>
+  <body>
+               
+<h1 align="center">Introduction to MOJ20 Server Samples </h1>
+             
+<h2>1. Introduction </h2>
+       MapObjects-Java Edition 2.0 comes with a set of server samples that
+ you can deploy to different J2EE servers. Depending on which containers/J2EE
+servers you want to deploy to, you can use either JspViewer/JspServletViewer
+for Web containers &nbsp;or SimpleEJB/AdvancedEJB for EJB containers. All
+these samples' source code is available for you to review and modify to
+fit your organization's business needs. The JavaDoc for all samples is
+available <a href="javadoc/index.html">here</a>, where detailed package
+and class descriptions are available. <br>
+        <br>
+       The following sections contain the design and implementation information 
+   for each individual sample. You may want to review them first before you
+   jump to deploy them. There are four sample applications. Two of them, JspServletViewer
+  and JspViewer, are Web applications that can run in a Web container, while
+  the other two, SimpleEJB and AdvancedEJB, are EJB-based applications that
+  require an EJB container to run. All four sample applications follow the same
+ design pattern of MVC (Model-View-Controller). <br>
+               
+<h2>2. JspServletViewer&nbsp;</h2>
+       The JspServletViewer application consists of a controller servlet
+called ServletController (Controller), a number of &nbsp;JSP pages (Viewer),
+and ServletMapper and its supporting classes that serve as a Model in
+the MVC pattern. All of the requests/actions from a browser are directed
+to the ServletController, which in turn calls ServletMapper to execute the
+function/action and then pass the result to a JSP page for displaying in
+the browser. The following diagram shows the architecture of JspServletViewer.
+The request is sent to the controller running in a Web (Servlet) container
+via a Web (HTTP) server. The MOJ server mapper&nbsp; components running within
+the Web container do the work of processing and generating responses based
+on the type of request. The controller then sends the results to an appropriate 
+JSP page to display in the browser client. <br>
+  <br>
+   
+<div align="center"><img src="images/Slide1.PNG" alt="" width="720"
+ height="540">
+  <br>
+  </div>
+             
+<h2>3. JspViewer</h2>
+       The JspViewer is almost identical to the JspServletViewer except that
+  it uses a JSP page called JSPViewerController as the controller (see Figure
+ 1). <br>
+             
+<h2>4. SimpleEJB Sample</h2>
+       The SimpleEJB sample application consists of a stateless session bean
+  serving as the model in MVC pattern,&nbsp; a JSP viewer called SimpleEjbViewer,
+  and a controller servlet called EJBControllerI. The model, stateless session
+  bean is accessed through its proxy, EJBMapperI. The stateless session
+bean is defined by a trio of MapServiceI (EJB interface), MapServiceIHome
+(EJB Home interface), and MapServiceIBean (an implicit implementation of
+both EJB and Home interfaces).&nbsp; The following diagram depicts the relationships
+  among those components. A request coming from the JSP viewer is first handled
+ by the controller component, which calls the SimpleEJB running in an EJB
+container through its proxy class via RMI/IIOP. The result from EJB is again
+processed and sent to an appropriate JSP page by the proxy class. If two
+containers (Web and EJB) are running in the same process, serialization and
+de-serialization processes over RMI/IIOP could be reduced to a local object
+reference. <br>
+  <br>
+   
+<div align="center"><img src="images/Slide2.PNG" alt="" width="720"
+ height="540">
+  <br>
+  </div>
+             
+<h2>5. AdvancedEJB Sample</h2>
+        The AdvancedEJB sample application consists of a viewer called AdvancedEjbViewer, 
+   a controller called EJBControllerII, and a stateless session bean as the 
+  model in the MVC pattern. The stateless session bean is defined by a trio 
+  of MapServiceII (EJB interface), MapServiceIIHome (EJB Home interface), and
+  MapServiceIIBean (an implicit implementation of both EJB and Home interfaces).
+They constitute the working components that get data from a local entity bean
+defined by a trio of ServiceCatalogLocal (Local EJB interface), ServiceCatalogLocalHome
+ (Local EJB Home interface), and ServiceCatalogBean/ServiceCatalogBeanBMP
+(an implicit implementation of EJB and Home interfaces). This local entity
+bean is mapped to a map service table in a database. Each row in the map
+service represents one service that contains information for each individual
+service, such as service name, type, output image format, image output
+directory or URL, and service configuration expressed in ArcXML. In this
+AdvancedEJB application, there is an additional EJB, which is defined by
+a trio of LayoutService (EJB interface), LayoutServiceHome (EJB Home interface),
+and LayoutServiceBean (an implicit implementation of EJB and home interfaces).
+This layout EJB provides functions to generate a layout image with elements
+such as NorthArrow, ScaleBar, and Legend. A request coming from the JSP viewer
+is first handled by the controller component, which calls the AdvancedEJB
+or LayoutEJB running in an EJB container through its proxy class via RMI/IIOP.
+The result from EJB is again processed and handled to an appropriate JSP
+page by the proxy class. If two containers (Web and EJB) are running in the
+same process, serialization and de-serialization processes over RMI/IIOP could
+be reduced to a local object reference. <br>
+  <br>
+   
+<div align="center"><img src="images/Slide3.PNG" alt="" width="720"
+ height="540">
+  <br>
+  </div>
+             
+<h2>6. AdvancedEJB Admin Tools</h2>
+       There are two admin tools (Figure 3) for adding, removing, and updating
+ AdvancedEJB services. One is a standalone Java application that accesses
+ CatalogEJB running in an EJB container via RMI/IIOP. The other one is Web-based
+ and can be run in a browser but requires a third party downloadable utility.<br>
+  <br>
+  There is a stateless session called CatalogEJB developed solely for the
+ purpose of administering services created as part of the AdvancedEJB sample.
+ The CatalogEJB is defined by Catalog (EJB interface), CatalogHome (EJB
+Home interface), and CatalogBean (the implementation of EJB and Home interfaces).
+ It uses the same local entity bean defined in the last section to add, remove,
+ and update the service information stored in a database. The CatalogEJB
+acts as a broker between admin tools and the local entity beans. <br>
+             
+<h3>6.1 Standalone AdvancedEJB Admin Tool</h3>
+       The standalone admin tool directly connects to CatalogEJB for administering 
+   services via RMI/IIOP. All of the main functions, such as listing, adding,
+removing, and refreshing a service, are available from the left pane, and all
+of them are self-explanatory. The application usually should run in the same
+machine where the server and MapObjects Java 2.0 are installed. However,
+if you make all of the necessary classes and resources available in another
+machine within an Intranet environment, you could run it from a machine other
+than the server. <br>
+             
+<h3>6.2 Web-based AdvancedEJB Admin Tool</h3>
+       The Web-based admin tool uses a servlet controller called CatalogServlet
+to access CatalogEJB for administering services. It has the same functionality
+as the standalone admin tool, and its user interface is almost identical to
+the standalone admin tool. Since it's a Web-based tool, it can run from anywhere
+with a browser.&nbsp; <br>
+             
+<h2>7. Deployment of &nbsp;Server Sample Applications</h2>
+      Currently ESRI has tested six different J2EE servers, including Apache
+Tomcat and ServletExec. ESRI has created a deployment document for each
+tested server as listed here:<br>
+        <br>
+        For Apache Tomcat: <br>
+        <a
+ href="../J2EEServers/Tomcat/Deploy_the_JSP_viewers_in_Tomcat_4.x_on_Linux.html">Deploy
+  the JSP viewers in Apache with Tomcat 4.1.18&nbsp;on Linux</a><br>
+        <a
+ href="../J2EEServers/Tomcat/Deploy_the_JSP_viewers_in_Tomcat_4.x_on_Solaris.html">Deploy
+  the JSP viewers in Apache with Tomcat 4.1.18&nbsp;on Solaris</a><br>
+        <a
+ href="../J2EEServers/Tomcat/Deploy_the_JSP_viewers_in_Tomcat_4.x_on_Windows.htm">Deploy
+  the JSP viewers in Apache with Tomcat 4.1.18&nbsp;on Windows</a><br>
+        <a
+ href="../J2EEServers/Tomcat/Deploy_the_JSP_viewers_in_Tomcat_on_MacOSX.html">Deploy
+  the JSP viewers in Apache with Tomcat 4.1.18 on Mac OS X</a><br>
+        <br>
+    For ServletExec from New Atlanta:<br>
+    <a
+ href="../J2EEServers/ServletExec/Deploy_the_JSP_viewers_in_ServletExec_4.2_for_Windows.htm">Deploy
+  the JSP viewers in ServletExec 4.2 for Windows IIS</a><br>
+    <br>
+        For JBoss: <br>
+        <a
+ href="../J2EEServers/JBoss/docs/Deploy_MOJ_JSP_viewers_and_EJBs_in_JBoss_3_0_6_with_embedded_Tomcat_4_1_18.html">Deploy
+    MOJ JSP viewers and EJBs in JBoss 3.0.6 with embedded Tomcat 4.1.18<br>
+    </a>    <br>
+        For Sun ONE: <br>
+        <a
+ href="../J2EEServers/SunONE/docs/Deploy_MOJ_JSP_viewers_and_EJBs_in_Sun_ONE_Application_Server_7.html">Deploy
+    MOJ JSP viewers and EJBs in Sun ONE Application Server 7</a><b><br>
+        <br>
+        </b>For WebLogic: <br>
+        <a
+ href="../J2EEServers/WebLogic/docs/Deploy_MOJ_JSP_viewers_and_EJBs_in_WebLogic_Server_7.html">Deploy
+    MOJ JSP viewers and EJBs in WebLogic Server 7.0.2</a><br>
+        <br>
+        For WebSphere: <br>
+        <a
+ href="../J2EEServers/WebSphere/docs/Deploy_MOJ_JSP_viewers_and_EJBs_in_WebSphere_Server_5.html">Deploy
+    MOJ JSP viewers and EJBs in WebSphere Server 5.0</a><br>
+       <br>
+       <br>
+    <br>
+   <br>
+   <br>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE ejb-jar PUBLIC 
+'-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN' 
+'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
+
+<ejb-jar>
+
+     <description>MOJ Server Sample Application</description>
+     <display-name>MOJ Server Simple EJB</display-name>
+
+     <enterprise-beans>
+
+       <session>
+         <ejb-name>MapServiceI</ejb-name>
+         <home>com.esri.svr.ejb.MapServiceIHome</home>
+         <remote>com.esri.svr.ejb.MapServiceI</remote>
+         <ejb-class>com.esri.svr.ejb.MapServiceIBean</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Bean</transaction-type>
+       </session>
+ 
+     </enterprise-beans>
+
+</ejb-jar>
+
+ 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ARCXML xmlns="http://www.esri.com/ArcXML" version="1.1">
+	<CONFIG>
+		<ENVIRONMENT>
+			<LOCALE language="en" country="US"/>
+			<SCREEN dpi="96"/>
+			<SEPARATORS/>
+		</ENVIRONMENT>
+		<MAP>
+			<PROPERTIES>
+				<ENVELOPE minx="-189.0" miny="-159.49775523870764" maxx="189.0" maxy="153.09379405706702" reaspect="false"/>
+				<MAPUNITS units="decimal_degrees"/>
+			</PROPERTIES>
+			<WORKSPACES>
+				<SHAPEWORKSPACE name="ws-0" directory="$MOJ20/Samples/Data/World" />
+			</WORKSPACES>
+			<LAYER name="country" id="0" type="featureclass">
+				<DATASET workspace="ws-0" name="country" type="polygon"/>
+				<SIMPLERENDERER>
+					<SIMPLEPOLYGONSYMBOL fillcolor="230,229,208" boundarycaptype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="lakes" id="1" type="featureclass">
+				<DATASET workspace="ws-0" name="lakes" type="polygon"/>
+				<SIMPLERENDERER>
+					<SIMPLEPOLYGONSYMBOL fillcolor="205,175,175" boundarycaptype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="rivers" id="2" type="featureclass">
+				<DATASET workspace="ws-0" name="rivers" type="line"/>
+				<SIMPLERENDERER>
+					<SIMPLELINESYMBOL color="6,66,144" width="1" captype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="cities" id="3" type="featureclass">
+				<DATASET workspace="ws-0" name="cities" type="point"/>
+				<SIMPLERENDERER>
+					<SIMPLEMARKERSYMBOL width="4" color="255,175,175"/>
+				</SIMPLERENDERER>
+			</LAYER>
+		</MAP>
+	</CONFIG>
+</ARCXML>

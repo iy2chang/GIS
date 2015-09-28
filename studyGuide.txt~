@@ -1,0 +1,18 @@
+Coordinate SysTree Panel? Projections
+MOJO classes for specifying how point features can be randered?
+	Symbol Line Symbol, Symbol Field Symbol
+GIS doesn't go over 25 colors
+
+values from 0-100, 5 classes
+put in "breaks" for 
+	a) equal intervals
+		100/5 = 20
+		1-20, 21-40, ...
+		
+	b) quintiles
+		count how many values we have = 20
+		20/5 = 4,	
+	c) natural breaks
+
+10 12 16 |(a) 22 | (b)33 34 39 40 |(a)(b) 55 58 62 64 | (b)68 76 |(a) 87
+90|(b) 91 94 98 99 

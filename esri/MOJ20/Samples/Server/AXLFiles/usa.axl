@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ARCXML xmlns="http://www.esri.com/ArcXML" version="1.1">
+	<CONFIG>
+		<ENVIRONMENT>
+			<LOCALE language="en" country="US"/>
+			<SCREEN dpi="96"/>
+			<SEPARATORS/>
+		</ENVIRONMENT>
+		<MAP>
+			<PROPERTIES>
+				<ENVELOPE minx="-178.21502685546875" miny="-0.83204051426479" maxx="-66.9698486328125" maxy="91.16346904209682" reaspect="false"/>
+				<MAPUNITS units="decimal_degrees"/>
+			</PROPERTIES>
+			<WORKSPACES>
+				<SHAPEWORKSPACE name="ws-0" directory="$MOJ20/Samples/Data/USA" />
+			</WORKSPACES>
+			<LAYER name="states" id="0" type="featureclass">
+				<DATASET workspace="ws-0" name="states" type="polygon"/>
+				<SIMPLERENDERER>
+					<SIMPLEPOLYGONSYMBOL fillcolor="214,183,218" boundarycaptype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="capitals" id="1" type="featureclass">
+				<DATASET workspace="ws-0" name="capitals" type="point"/>
+				<SIMPLERENDERER>
+					<SIMPLEMARKERSYMBOL width="4" color="255,175,175"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="uslakes" id="2" type="featureclass">
+				<DATASET workspace="ws-0" name="uslakes" type="polygon"/>
+				<SIMPLERENDERER>
+					<SIMPLEPOLYGONSYMBOL fillcolor="186,200,209" boundarycaptype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+			<LAYER name="ushigh" id="3" type="featureclass">
+				<DATASET workspace="ws-0" name="ushigh" type="line"/>
+				<SIMPLERENDERER>
+					<SIMPLELINESYMBOL color="15,109,28" width="1" captype="round"/>
+				</SIMPLERENDERER>
+			</LAYER>
+		</MAP>
+	</CONFIG>
+</ARCXML>

@@ -1,0 +1,137 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JToolBar;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import java.io.IOException;
+import java.awt.event.*;
+import java.awt.*;
+import com.esri.mo2.ui.bean.*;
+import com.esri.mo2.ui.tb.ZoomPanToolBar;
+import com.esri.mo2.ui.tb.SelectionToolBar;
+import com.esri.mo2.ui.ren.LayerProperties;
+import com.esri.mo2.ui.bean.Tool;
+
+class MyLibrary extends JFrame{
+static MyLibrary qstart;
+static Map map = new Map();
+Legend legend;
+Layer layer = new Layer();
+Layer layer2 = new Layer();
+static com.esri.mo2.map.dpy.Layer mapLayer;
+JMenuBar mbar = new JMenuBar();
+JMenu file = new JMenu("File");
+JMenuItem propsitem = new JMenuItem("Legend Editor", new ImageIcon("properties.gif"));
+Toc toc = new Toc();
+String s1 = "C:\\ESRI\\MOJ20\\Samples\\Data\\USA\\States.shp";
+String s2 = "C:\\ESRI\\MOJ20\\Samples\\Data\\USA\\capitals.shp";
+ZoomPanToolBar zptb = new ZoomPanToolBar();
+SelectionToolBar stb = new SelectionToolBar();
+JToolBar jtb = new JToolBar();
+JPanel myjp = new JPanel();
+JButton hotjb = new JButton(new ImageIcon("hotlink.gif"));
+Toolkit tk = Toolkit.getDefaultToolkit();
+Image bolt = tk.getImage("hotlink.gif"); // 16x16 gif file
+Cursor boltCursor = tk.createCustomCursor(bolt, new Point(6,30), "bolt");
+ActionListener lis;
+ActionListener layerLis;
+ActionListener actList;
+TocAdapter myTocAdapter;
+Identify hotlink = new Identify();
+MyPickAdapter pickLis = new MyPickAdapter();
+/* 
+* Class: MyPickAdapter
+* 
+* Implementation for the hotlinks */
+class MyPickAdapter implements PickListener{
+public void beginPick(PickEvent pe){
+System.out.println("begin pick");
+}
+public void endPick(PickEvent pe){};
+public void foundData(PickEvent pe){
+System.out.println("HOLA PICK");
+try {
+HotPick hotpick = new HotPick();
+hotpick.setVisible(true);
+} catch(Exception e){}
+}
+};
+public MyFavoriteLocations(){
+super("My Favorite San Diego Locations");
+this.setSize(750,550);
+zptb.setMap(map);
+stb.setMap(map);
+setJMenuBar(mbar);
+lis = new ActionListener() {
+public void actionPerformed(ActionEvent ae){
+Object source = ae.getSource();
+if(source == hotjb) {
+System.out.println("helllooooooo");
+map.setSelectedTool(hotlink);
+}
+}
+};
+toc.setMap(map);
+myTocAdapter = new TocAdapter(){
+public void click(TocEvent e){
+legend = e.getLegend();
+mapLayer = legend.getLayer();
+stb.setSelectedLayer(mapLayer);
+zptb.setSelectedLayer(mapLayer);
+com.esri.mo2.map.dpy.Layer[] layers = { mapLayer };
+hotlink.setSelectedLayers(layers);
+propsitem.setEnabled(true);
+}
+};
+toc.addTocListener(myTocAdapter);
+propsitem.setEnabled(false);
+propsitem.addActionListener(layerLis);
+file.add(propsitem);
+mbar.add(file);
+hotlink.addPickListener(pickLis);
+hotlink.setPickWidth(5);	// sets the tolerance for hotlinkl clicks
+hotjb.addActionListener(lis);
+hotjb.setToolTipText("HotLink tool--click an icon on the map");
+jtb.add(hotjb);
+myjp.add(jtb);
+myjp.add(zptb);
+getContentPane().add(map, BorderLayout.CENTER);
+getContentPane().add(myjp, BorderLayout.NORTH);
+addShapefileToMap(layer, s1);
+getContentPane().add(toc, BorderLayout.WEST);
+}
+private void addShapefileToMap(Layer layer, String s){
+String datapath = s;
+layer.setDataset("0;"+datapath);
+map.add(layer);
+toc.add(layer);
+}
+public static void main(String[] args){
+qstart = new MyFavoriteLocations();
+qstart.addWindowListener(new WindowAdapter(){
+public void windowClosing(WindowEvent e){
+System.out.println("Thanks, My Program is exiting");
+System.exit(0);
+}
+});
+qstart.setVisible(true);
+}
+class HotPick extends JDialog {
+HotPick() throws IOException{
+setTitle("This was your pick");
+setBounds(50,50,350,350);
+getContentPane().add(label,BorderLayout.CENTER);
+addWindowListener(new WindowAdapter(){
+public void windowClosing(WindowEvent e){
+setVisible(false);
+}
+});	
+}
+JLabel label = new JLabel(new ImageIcon("duke12.gif"));
+}
+}

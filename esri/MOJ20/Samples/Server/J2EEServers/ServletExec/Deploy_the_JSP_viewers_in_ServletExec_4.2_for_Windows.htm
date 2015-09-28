@@ -1,0 +1,259 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:w="urn:schemas-microsoft-com:office:word"
+ xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+  <title>Deploy the JSP viewers in ServletExec 4.2 for Windows</title>
+                                                                        
+                                                                		 		   
+                                                                        
+                        
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+                                   		                                   
+                                                                  
+  <meta name="ProgId" content="Word.Document">
+                                   		                                   
+                                                                  
+  <meta name="Generator" content="Microsoft Word 9">
+                                   		                                   
+                                                                  
+  <meta name="Originator" content="Microsoft Word 9">
+                                   		         	                         
+                                                                         
+ 
+  <meta name="Author" content="Frank Xia">
+</head>
+  <body lang="EN-US" link="blue" vlink="blue" style="">
+                                   		                                  
+<div class="Section1">                                
+<h1> 			  <b>Deploy the JSP viewers in ServletExec 4.2 for Windows</b>   
+            2000's IIS<br>
+                                </h1>
+                                                               
+<p><b>   				Note: </b><i>$MOJ</i>  refers  				to the   folder, such as
+<tt>C:\ESRI\MOJ20</tt>,       in which MapObjects Java Edition  Version 2.0
+has  been installed.&nbsp;</p>
+                                   			                                  
+<ol>
+                                   				<li class="MsoNormal" style=""> 				Install
+     MapObjects      Java   2.0   and ServletExec 				if you haven't done
+it   yet  and make  sure the Internet Information Server (IIS) 5.0 is installed
+   in your Windows  2000 machine before you install ServletExec.&nbsp;  
+				<br>
+                  </li>
+                                          <br>
+                           <li class="MsoNormal" style=""> 					Create a
+folder    for   MOJ     to   output generated map images to, and for the
+JSP  					viewers      to   pick    up  these  images  from, say at 'C:\<span
+ style="font-family: 'Courier New';">temp\output</span>'   and map this output 
+            directory in IIS as a virutal &nbsp;directory also named as <tt>output</tt> 
+       using  IIS  adminstration    tool.&nbsp;&nbsp;</li>
+                                      <br>
+                                 <li class="MsoNormal" style="">Modify <tt>usa.axl</tt>
+       and <tt>world.axl</tt> located at $MOJ20/Samples/Server/AXLFiles.&nbsp;Replace
+       the <i> 						$MOJ</i> string within the  					two          sample
+AXL    files   with the MOJ 2.0 install  directory         					such as <i>
+						<span style="font-family: 'Courier New';">'C:/ESRI/MOJ20'</span></i>
+         			                            			                  <br>
+                      <br>
+                                                                        
+                                                                   
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 0% 50%; margin-left: 0.01in; width: 100%;">
+                                   				<tbody>
+                                      <tr>
+                                   					<td valign="top"> 						        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                       
+          <p class="MsoNormal"><span style="font-family: 'Courier New';">&lt;ARCXML&gt;<br>
+                                     ...<br>
+                                     &lt;WORKSPACES&gt;<br>
+                                     &lt;SHAPEWORKSPACE name="ws-0" directory="$<i>MOJ</i>/Samples/Data/USA" 
+                   /&gt;<br>
+                                     &lt;/WORKSPACES&gt;<br>
+                                     ...<br>
+                                     &lt;/ARCXML&gt;</span></p>
+                                   					</td>
+                                   				</tr>
+                                   			                                  
+                                                                        
+                                                                        
+                      
+      </tbody>                                                           
+                                                                        
+   
+    </table>
+                       <br>
+                    </li>
+                                   		<br>
+                         	                 				<li class="MsoNormal"
+ style="">  Modify     the $MOJ20\Samples\Server\J2EEServers\ServletExec\JspViewer\WEB-INF\classes\mapservices.xml
+                 					and the&nbsp;&nbsp;$MOJ20\Samples\Server\J2EEServers\ServletExec\JspServletViewer\WEB-INF\classes\mapservices.xml
+                  					configuration files so that it looks something like
+ this:&nbsp;            				<br>
+                         <br>
+                               			                 			                  
+                                                                        
+                                            
+    <table border="0" cellpadding="0" width="100%" bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 0% 50%; margin-left: 0.01in; width: 100%;">
+                                   				<tbody>
+                                      <tr>
+                                   					<td valign="top"> 						        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                       
+          <p class="MsoNormal"><span style="font-family: 'Courier New';">&lt;services&gt;<br>
+                                     &lt;name&gt;usa1&lt;/name&gt;<br>
+                                     ...<br>
+                                     &lt;output_dir&gt;C:/temp/output&lt;/output_dir&gt;<br>
+                                     &lt;output_url&gt;&lt;/output_url&gt;<br>
+                                     &lt;axl_file&gt;C:/ESRI/MOJ20/Samples/Server/J2EEServers/AXLFiles/usa.axl&lt;/axl_file&gt;<br>
+                                     ...<br>
+                                     &lt;name&gt;world2&lt;/name&gt;<br>
+                                     ...<br>
+                                     &lt;output_dir&gt;C:/temp/output&lt;/output_dir&gt;<br>
+                                     &lt;output_url&gt;&lt;/output_url&gt;
+ &lt;axl_file&gt;$<i>MOJ</i>/Samples/ServerSamples/J2EEServers/AXLFiles/world.axl&lt;/axl_file&gt;<br>
+                                     ...<br>
+                                     &lt;/services&gt;</span></p>
+                                   					</td>
+                                   				</tr>
+                                   			                                  
+                                                                        
+                                                                        
+                      
+      </tbody>                                                           
+                                                                        
+   
+    </table>
+                      <br>
+          </li>
+                                   			                 				<br>
+        <li class="MsoNormal" style="">Run ServletExec Admin tool from Windows'
+   start menu by clicking    on <tt><nobr>Start-&gt;Programs-&gt;New Atlanta-&gt;ServletExec 
+   4.2 ISAPI-&gt;ServletExec    Admin</nobr></tt>. If you are running it as
+      <i>Unlicensed</i> mode to evaluate  the product,   you will see the
+following   screen shot but don't worry about  it for now,  or you can enter
+your license   if you have one:     <br>
+          <br>
+           <img src="images/image001.png" alt="" width="889"
+ height="761">
+                                                                        
+              <br>
+                                                                        
+                                                                        
+         </li>
+             <br>
+                 <li class="MsoNormal" style="">Click on <tt>classpath</tt> 
+ under        <tt>Virtual   Machine</tt> in the left pane, you should see 
+the following  screen shot::<br>
+         <br>
+           <img src="images/image003.png" alt="" width="889"
+ height="761">
+          <br>
+            </li>
+        <br>
+            <li class="MsoNormal" style="">Type $MOJ20\lib\esri_mo20.jar
+(including      full  path) into the blank entry and then click <b>Submit</b>.&nbsp;&nbsp;<br>
+          <br>
+           <img src="images/image005.png" alt="" width="889"
+ height="761">
+            <br>
+           </li>
+            <br>
+                <li class="MsoNormal" style="">Continue the above process 
+for   rest   of  the jar files from the $MOJ20\lib and <tt>esri_iostreamprovider.jar</tt> 
+  from  $MOJ20\Samples\Server\IOStreamProvider.   After you finish this process,
+   you should see all of the jar files listed   in this classpath screen.&nbsp;<br>
+            <br>
+           <img src="images/image007.png" alt="" width="889"
+ height="761">
+           <br>
+           </li>
+            <br>
+                <li class="MsoNormal" style="">Click on <tt>manage</tt> under 
+      <tt>Web     Applications</tt> in the left pane and you should see the 
+  following screen   shot:<br>
+            <br>
+           <img src="images/image009.png" alt="" width="889"
+ height="761">
+           <br>
+           </li>
+            <br>
+                 <li class="MsoNormal" style="">Click on <b>Add Web Application</b>. 
+     Enter  JspViewer in both Application Name and URL Context Path entries, 
+   and  type  in&nbsp; $MOJ20/Samples/Server/J2EEServers/ServletExec/JspViewer 
+   in  the Location  entry.&nbsp;<br>
+            <br>
+           <img src="images/image011.png" alt="" width="889"
+ height="761">
+           <br>
+           </li>
+            <br>
+                <li class="MsoNormal" style="">Click on <b>Submit</b>, you
+ should    see   the following screen shot to indicate the JspViewer has
+been  succssfully      deployed.&nbsp;<br>
+            <br>
+           <img src="images/image013.png" alt="" width="888"
+ height="758">
+             <br>
+           </li>
+           <br>
+                <li class="MsoNormal" style="">Go through the same process
+ to  deploy    JspServletViewer.      <br>
+                </li>
+                           <br>
+                                    <li class="MsoNormal" style="">Restart
+ the   IIS   web   server using Windows Administrative Tool.     				<br>
+                           </li>
+                            <br>
+                                     <li class="MsoNormal" style="">Test
+JspViewer,     open a browser    and   type   one of the  following URLs,
+    <br>
+                           <a
+ href="http://localhost:8080/JspViewer/viewer.htm">http://localhost/JspViewer/viewer.htm</a> 
+    or&nbsp;               			<br>
+        	 <a
+ href="http://yourlocalmachinename:8080/JspViewer/viewer.htm">http://yourlocalmachinename/JspViewer/viewer.htm</a>,&nbsp; 
+    you should see the following screen shot:&nbsp;<br>
+      <br>
+       <img src="images/image015.png" alt="" width="886" height="752">
+        <br>
+       </li>
+      <br>
+       <li class="MsoNormal" style="">Select a map service say <tt>usa1</tt>, 
+  and then click <tt>GetMapService</tt>, you should see the following screen 
+  shot:<br>
+      <br>
+       <img src="images/image017.png" alt="" width="886" height="751">
+        <br>
+       </li>
+             <br>
+           <li class="MsoNormal" style="">Test JspServletViewer, open a browser 
+   and  type one of the following URLs, <br>
+                             <a
+ href="http://localhost:8080/JspServletViewer/viewer.htm">  http://localhost/JspServletViewer/viewer.htm</a>&nbsp; 
+    or <br>
+                          <a
+ href="http://yourlocalmachinename:8080/JspServletViewer/viewer.htm">http://yourlocalmachinename/JspServletViewer/viewer.htm</a>, 
+    you should see the same screen shot as JspViewer.&nbsp; &nbsp;       
+   			        			       		</li>
+                                   			                                  
+</ol>
+                                   			               			               			
+               			         </div>
+                                   	<br>
+                                   <br>
+                                                   <br>
+                      <br>
+ 
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE weblogic-ejb-jar PUBLIC 
+'-//BEA Systems, Inc.//DTD WebLogic 7.0.0 EJB//EN' 
+'http://www.bea.com/servers/wls700/dtd/weblogic-ejb-jar.dtd'>
+
+<weblogic-ejb-jar>
+  <weblogic-enterprise-bean>
+    <ejb-name>Catalog</ejb-name>
+    <jndi-name>ejb/Catalog</jndi-name>
+  </weblogic-enterprise-bean>
+
+  <weblogic-enterprise-bean>
+    <ejb-name>ServiceCatalogBean1</ejb-name>
+    <reference-descriptor>
+      <resource-description>
+        <res-ref-name>jdbc/MapServiceDS</res-ref-name>
+        <jndi-name>MySQLDS</jndi-name>
+      </resource-description>
+    </reference-descriptor>
+    <local-jndi-name>ejb/ServiceCatalogLocalHome1</local-jndi-name>
+  </weblogic-enterprise-bean>
+
+</weblogic-ejb-jar>
+

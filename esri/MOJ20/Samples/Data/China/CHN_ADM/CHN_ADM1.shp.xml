@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="en">
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>Africa: Corbett, J.D. and R.F. O’Brien,1997. The Spatial Characterization Tool - Africa Version 1.0. Texas Agriculture Experiment Station, Texas A&amp;M University System, Blackland Research Center Report No.97-03, CDROM Publication., Asia: Asia population database (UC- Sta. Barbara through CIESIN at http://www.ciesin.org/)., South America: database downloaded from the CIAT website (no longer available), Data for Europe, Russia, North America and Oceania are not yet included. Check ESRI data for more sources.</origin>
+				<pubdate>1997</pubdate>
+				<title>CHINA</title>
+				<geoform Sync="TRUE">vector digital data</geoform>
+				<onlink>http://research.cip.cgiar.org/confluence/display/divagis/Home</onlink>
+				<ftname Sync="TRUE">CHN_ADM1</ftname>
+			</citeinfo>
+		</citation>
+		<descript>
+			<abstract>Administrative boundaries of  the first level subdivisions (such as State, Department, Province)</abstract>
+			<purpose>To provide first-level administrative unit boundaries for the world.</purpose>
+			<langdata Sync="TRUE">en</langdata>
+		</descript>
+		<timeperd>
+			<timeinfo>
+				<sngdate>
+					<caldate>unknown</caldate>
+				</sngdate>
+			</timeinfo>
+			<current>publication date</current>
+		</timeperd>
+		<status>
+			<progress>Complete</progress>
+			<update>As needed</update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc Sync="TRUE">73.557701</westbc>
+				<eastbc Sync="TRUE">134.773926</eastbc>
+				<northbc Sync="TRUE">53.560856</northbc>
+				<southbc Sync="TRUE">18.161264</southbc>
+			</bounding>
+			<lboundng>
+				<leftbc Sync="TRUE">73.557701</leftbc>
+				<rightbc Sync="TRUE">134.773926</rightbc>
+				<topbc Sync="TRUE">53.560856</topbc>
+				<bottombc Sync="TRUE">18.161264</bottombc>
+			</lboundng>
+		</spdom>
+		<keywords>
+			<theme>
+				<themekt>REQUIRED: Reference to a formally registered thesaurus or a similar authoritative source of theme keywords.</themekt>
+				<themekey>polygon, administrative units,administrative unit and international codes</themekey>
+			</theme>
+		</keywords>
+		<accconst>None</accconst>
+		<useconst>None</useconst>
+		<ptcontac>
+			<cntinfo>
+				<cntperp>
+					<cntper>Reinhard Simon</cntper>
+					<cntorg>International Potato Center</cntorg>
+				</cntperp>
+				<cntpos>Head, Research Informatics</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>La Molina 1895 Avenue</address>
+					<city>Lima</city>
+					<state>Lima</state>
+					<postal>1558</postal>
+					<country>Perú</country>
+				</cntaddr>
+				<cntemail>r.simon@cgiar.org</cntemail>
+			</cntinfo>
+		</ptcontac>
+		<native Sync="TRUE">Microsoft Windows 2000 Version 5.0 (Build 2195) Service Pack 4; ESRI ArcCatalog 9.0.0.535</native>
+		<crossref>
+			<citeinfo></citeinfo>
+		</crossref>
+		<natvform Sync="TRUE">Shapefile</natvform>
+	</idinfo>
+	<spdoinfo>
+		<direct Sync="TRUE">Vector</direct>
+		<ptvctinf>
+			<sdtsterm Name="CHN_ADM1">
+				<sdtstype Sync="TRUE">G-polygon</sdtstype>
+				<ptvctcnt Sync="TRUE">37</ptvctcnt>
+			</sdtsterm>
+			<esriterm Name="CHN_ADM1">
+				<efeatyp Sync="TRUE">Simple</efeatyp>
+				<esritopo Sync="TRUE">FALSE</esritopo>
+				<linrefer Sync="TRUE">FALSE</linrefer>
+				<spindex Sync="TRUE">FALSE</spindex>
+				<efeageom Sync="TRUE">Polygon</efeageom>
+				<efeacnt Sync="TRUE">37</efeacnt>
+			</esriterm>
+		</ptvctinf>
+	</spdoinfo>
+	<spref>
+		<horizsys>
+			<geograph>
+				<latres Sync="TRUE">0.000001</latres>
+				<longres Sync="TRUE">0.000001</longres>
+				<geogunit Sync="TRUE">Decimal degrees</geogunit>
+			</geograph>
+			<geodetic>
+				<horizdn Sync="TRUE">D_WGS_1984</horizdn>
+				<ellips Sync="TRUE">WGS_1984</ellips>
+				<semiaxis Sync="TRUE">6378137.000000</semiaxis>
+				<denflat Sync="TRUE">298.257224</denflat>
+			</geodetic>
+			<cordsysn>
+				<geogcsn Sync="TRUE">GCS_WGS_1984</geogcsn>
+			</cordsysn>
+		</horizsys>
+	</spref>
+	<eainfo>
+		<detailed Name="CHN_ADM1">
+			<enttyp>
+				<enttypl Sync="TRUE">CHN_ADM1</enttypl>
+				<enttypc Sync="TRUE">37</enttypc>
+				<enttypt Sync="TRUE">Feature Class</enttypt>
+			</enttyp>
+			<attr>
+				<attrlabl Sync="TRUE">FID</attrlabl>
+				<attrdef Sync="TRUE">Internal feature number.</attrdef>
+				<attrdefs Sync="TRUE">ESRI</attrdefs>
+				<attrdomv>
+					<udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom>
+				</attrdomv>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attalias Sync="TRUE">FID</attalias>
+				<attrtype Sync="TRUE">OID</attrtype>
+				<attscale Sync="TRUE">0</attscale>
+				<attwidth Sync="TRUE">4</attwidth>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">Shape</attrlabl>
+				<attrdef Sync="TRUE">Feature geometry.</attrdef>
+				<attrdefs Sync="TRUE">ESRI</attrdefs>
+				<attrdomv>
+					<udom Sync="TRUE">Coordinates defining the features.</udom>
+				</attrdomv>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attalias Sync="TRUE">Shape</attalias>
+				<attrtype Sync="TRUE">Geometry</attrtype>
+				<attscale Sync="TRUE">0</attscale>
+				<attwidth Sync="TRUE">0</attwidth>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">COD</attrlabl>
+				<attrdef>The country code (three -letter) for the country from the International Organization for Standardization.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attalias Sync="TRUE">COD</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">5</attwidth>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">ADM0</attrlabl>
+				<attrdef>Country name</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attalias Sync="TRUE">ADM0</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">18</attwidth>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">ADM1</attrlabl>
+				<attrdef>The name of the first-level administrative unit boundaries for the country.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attalias Sync="TRUE">ADM1</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">25</attwidth>
+			</attr>
+		</detailed>
+	</eainfo>
+	<distinfo>
+		<resdesc Sync="TRUE">Downloadable Data</resdesc>
+		<stdorder>
+			<digform>
+				<digtinfo>
+					<transize Sync="TRUE">0.800</transize>
+					<dssize Sync="TRUE">0.800</dssize>
+				</digtinfo>
+			</digform>
+		</stdorder>
+	</distinfo>
+	<metainfo>
+		<metd Sync="TRUE">20060518</metd>
+		<metc>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>International Potato Center</cntorg>
+					<cntper>Reinhard Simon</cntper>
+				</cntorgp>
+				<cntpos>Head, Research Informatics Unit</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>La Molina 1895 Avenue</address>
+					<city>Lima</city>
+					<state>Lima</state>
+					<postal>1558</postal>
+					<country>Perú</country>
+				</cntaddr>
+				<cntvoice>REQUIRED: The telephone number by which individuals can speak to the organization or individual.</cntvoice>
+				<cntemail>r.simon@cgiar.org</cntemail>
+			</cntinfo>
+		</metc>
+		<metstdn Sync="TRUE">FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+		<metstdv Sync="TRUE">FGDC-STD-001-1998</metstdv>
+		<mettc Sync="TRUE">local time</mettc>
+		<langmeta Sync="TRUE">en</langmeta>
+		<metextns><onlink Sync="TRUE">http://www.esri.com/metadata/esriprof80.html</onlink><metprof Sync="TRUE">ESRI Metadata Profile</metprof></metextns></metainfo>
+	<dataIdInfo>
+		<envirDesc Sync="TRUE">Microsoft Windows 2000 Version 5.0 (Build 2195) Service Pack 4; ESRI ArcCatalog 9.0.0.535</envirDesc>
+		<dataLang>
+			<languageCode Sync="TRUE" value="en"></languageCode>
+		</dataLang>
+		<geoBox esriExtentType="decdegrees">
+			<westBL Sync="TRUE">73.557701</westBL>
+			<eastBL Sync="TRUE">134.773926</eastBL>
+			<northBL Sync="TRUE">53.560856</northBL>
+			<southBL Sync="TRUE">18.161264</southBL>
+			<exTypeCode Sync="TRUE">1</exTypeCode>
+		</geoBox>
+		<idCitation>
+			<resTitle Sync="TRUE">CHN_ADM1</resTitle>
+			<presForm>
+				<PresFormCd Sync="TRUE" value="005"></PresFormCd>
+			</presForm>
+		</idCitation>
+		<spatRpType>
+			<SpatRepTypCd Sync="TRUE" value="001"></SpatRepTypCd>
+		</spatRpType>
+		<dataExt>
+			<geoEle>
+				<GeoBndBox esriExtentType="native">
+					<westBL Sync="TRUE">73.557701</westBL>
+					<northBL Sync="TRUE">53.560856</northBL>
+					<southBL Sync="TRUE">18.161264</southBL>
+					<eastBL Sync="TRUE">134.773926</eastBL>
+					<exTypeCode Sync="TRUE">1</exTypeCode>
+				</GeoBndBox>
+			</geoEle>
+		</dataExt>
+	</dataIdInfo>
+	<distInfo>
+		<distributor>
+			<distorTran>
+				<onLineSrc>
+					<orDesc Sync="TRUE">002</orDesc>
+					<protocol Sync="TRUE">Local Area Network</protocol>
+					<linkage Sync="TRUE">file://\\W2K-KGURUSAMY\diva$\CHN_ADM1.shp</linkage>
+				</onLineSrc>
+				<transSize Sync="TRUE">0.800</transSize>
+			</distorTran>
+			<distorFormat>
+				<formatName Sync="TRUE">Shapefile</formatName>
+			</distorFormat>
+		</distributor>
+	</distInfo>
+	<Esri>
+		<ModDate>20060518</ModDate>
+		<ModTime>11280800</ModTime>
+		<SyncDate>20060518</SyncDate>
+		<SyncOnce>FALSE</SyncOnce>
+		<SyncTime>11274900</SyncTime>
+		<CreaDate>20060518</CreaDate>
+		<CreaTime>07502500</CreaTime>
+		<DataProperties>
+			<lineage></lineage>
+		</DataProperties>
+		<MetaID>{FFAFFA4F-8057-4D43-BF39-94087D6B022E}</MetaID></Esri>
+	<mdChar>
+		<CharSetCd Sync="TRUE" value="004"></CharSetCd>
+	</mdChar>
+	<mdDateSt Sync="TRUE">20060518</mdDateSt>
+	<mdHrLv>
+		<ScopeCd Sync="TRUE" value="005"></ScopeCd>
+	</mdHrLv>
+	<mdHrLvName Sync="TRUE">dataset</mdHrLvName>
+	<mdLang>
+		<languageCode Sync="TRUE" value="en"></languageCode>
+	</mdLang>
+	<mdStanName Sync="TRUE">ISO 19115 Geographic Information - Metadata</mdStanName>
+	<mdStanVer Sync="TRUE">DIS_ESRI1.0</mdStanVer>
+	<refSysInfo>
+		<RefSystem>
+			<refSysID>
+				<identCode Sync="TRUE">GCS_WGS_1984</identCode>
+			</refSysID>
+		</RefSystem>
+	</refSysInfo>
+	<spatRepInfo>
+		<VectSpatRep>
+			<topLvl>
+				<TopoLevCd Sync="TRUE" value="001"></TopoLevCd>
+			</topLvl>
+			<geometObjs Name="CHN_ADM1"><geoObjTyp><GeoObjTypCd Sync="TRUE" value="001"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">37</geoObjCnt></geometObjs></VectSpatRep>
+	</spatRepInfo>
+	<dataqual><lineage><procstep><procdesc Sync="TRUE">Metadata imported.</procdesc><srcused Sync="TRUE">C:\DOCUME~1\hjuarez\LOCALS~1\Temp\xmlE2C.tmp</srcused><date Sync="TRUE">20060518</date><time Sync="TRUE">07502500</time></procstep></lineage></dataqual></metadata>

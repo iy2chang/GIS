@@ -1,0 +1,13 @@
+#This contains a series of point coordinates
+#in longtitude and Latitude(x,y). The data
+#is used in the sample#21 in the TutorialBook
+-120, 45
+-140, 30
+-110, 40
+-115, 35
+-130, 50
+-130, 35
+-125, 40
+-150, 30
+-135, 40
+-140, 45

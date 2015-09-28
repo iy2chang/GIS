@@ -1,0 +1,18 @@
+<services>
+	<service>
+		<name>usa1</name>
+		<type>image</type>
+		<output_dir>#OUTPUT_DIRECTORY_NAME#</output_dir>
+		<output_url></output_url>
+		<axl_file>$MOJ20/Samples/Server/AXLFiles/usa.axl</axl_file>
+		<image_format>PNG</image_format>
+	</service>
+	<service>
+		<name>world2</name>
+		<type>image</type>
+		<output_dir>#OUTPUT_DIRECTORY_NAME#</output_dir>
+		<output_url></output_url>
+		<axl_file>$MOJ20/Samples/Server/AXLFiles/world.axl</axl_file>
+		<image_format>PNG</image_format>
+	</service>
+</services>

@@ -1,0 +1,75 @@
+<html>
+<head>
+<script language="JavaScript" type="text/javascript">
+var url = "/AdvancedEjbAdmin/servlet/CatalogServlet";
+
+function addservice() {
+   //alert("add service 1 ");
+   var theForm = document.forms[0];
+
+   if (theForm != null) {
+	//alert("can add service=> " + theForm.canAdd.value);
+	var name = theForm.name.value;
+	var type = theForm.type.value;
+	var config = theForm.config.value;
+	var filename = theForm.axlfile.value;
+
+	if (name==null || name=="") {
+        	alert("Please enter new service name!");	
+		return false;
+	}
+ 	
+	else if (type==null || type=="") {
+          	alert("Please enter new service type!");
+		return false;
+	}
+
+	else if ( (config==null || config=="") && (filename==null || filename=="")) {
+		alert("Please enter AXL configuration document or file name!");
+		return false;
+	}
+
+	else { 
+	  	theForm.action = url;
+	  	theForm.submit();
+	}
+   } 
+}
+</script>
+</head>
+
+<h1>Add a New Service</h1>
+<FORM method='POST' ENCTYPE="multipart/form-data">
+<table column='2' border='0' bordercolor='yellow' valign='top'>
+<tr>
+<td><b>Service Name:</b></td><td><input name='name' value=''></td>
+</tr>
+<tr>
+<td><b>Service Type:</b></td><td><input name='type' value=''></td>
+</tr>
+<tr>
+<td><b>Image Format:</b> </td><td><input name='image_format' value=''></td>
+</tr>
+<tr>
+<td><b>Output Directory:</b> </td><td><input name='output_dir' value=''> </td>
+</tr>
+<tr>
+<td><b>Output URL:</b> </td><td><input name='output_url' value=''></td>
+</tr>
+<tr>
+<td><b>Service Config AXL File:</b> </td><td><input type='file' name=axlfile value='' ></td>
+</tr>
+<tr>
+<td colspan='2'><b>Or You can enter service configuration AXL content here: </b></td>
+</tr> 
+<tr>
+<td colspan='2'><textarea name='config' rows=5 cols=60></textarea></td>
+</tr>
+</table>
+<input type='hidden' name='canRemoveRefresh' value='false'>
+<input type='hidden' name='canAdd' value='true'>
+<input type='hidden' name='cmd' value='AddService'>
+
+<input type='button' name='OK' value='Add' onclick='return addservice();' >
+
+</FORM>

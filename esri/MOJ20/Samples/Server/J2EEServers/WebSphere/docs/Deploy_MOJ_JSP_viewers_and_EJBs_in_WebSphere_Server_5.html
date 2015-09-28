@@ -1,0 +1,1304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Deploy MOJ JSP viewers and EJBs in WebSphere Server 5.0</title>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                       
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+                                                                        
+                                                                        
+                                                     
+  <meta name="author" content="Frank Xia">
+</head>
+  <body>
+                                                                        
+                          
+<h1>Deploy MOJ JSP viewers and EJBs in WebSphere Server 5.0</h1>
+                                                                        
+                          
+<h2>Table of contents</h2>
+                                                 <a
+ href="#Deploy_MOJ_EJBs_and_JSP_Viewer_in">  Deploy    MOJ   EJBs   and 
+ JSP   Viewers  in WebSphere</a><br>
+                                                  &nbsp;&nbsp;&nbsp; <a
+ href="#Start_up_WebSphere_example_server">Start    up  WebSphere example
+                    server</a><br>
+                                                  &nbsp;&nbsp;&nbsp; <a
+ href="#Deploy_a_web_application_as_temporary">Deploy   a web application
+                      as temporary map image folder</a><br>
+                                  &nbsp;&nbsp;&nbsp; <a
+ href="#Deploy_JSP_viewers">Deploy         JSP   viewers</a><br>
+                                                   &nbsp;&nbsp;&nbsp; <a
+ href="#Deploy_SimpleEJB_and_its_viewer">Deploy     SimpleEJB  and its viewer</a><br>
+                                                  &nbsp;&nbsp;&nbsp; <a
+ href="#Deploy_AdvancedEJB_and_its_viewer">Deploy     AdvancedEJB and its
+                    viewer</a><br>
+                                                        <br>
+                                                 <a
+ href="#Testing_JSP_viewers_map_EJBs_and_their">  Testing     JSP   viewers, 
+                and map EJBs and their viewers</a> <br>
+                                               &nbsp;&nbsp;&nbsp; <a
+ href="#Testing_JSP_Viewers">Testing     JSP   Viewers</a><br>
+                                                  &nbsp;&nbsp; &nbsp;<a
+ href="#Testing_SimpleEJB_and_its_viewer">Testing     SimpleEJB and its viewer</a><br>
+                                                  &nbsp;&nbsp;&nbsp; <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with">Testing  AdvancedEJB and
+                       its viewer standalone admin tool</a><br>
+                                                  &nbsp;&nbsp;&nbsp; <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with_web">Testing  AdvancedEJB 
+          and             its viewer with web-based admin tool</a><br>
+                                                                        
+                           
+<h2><a name="Deploy_MOJ_EJBs_and_JSP_Viewer_in"></a>Deploy MOJ EJBs and JSP 
+                        Viewer in WebSphere</h2>
+                                                                        
+                          
+<h3><a name="Start_up_WebSphere_example_server"></a>Start up WebSphere example 
+                        server</h3>
+                                                                        
+                    
+<ol>
+                                                <li>Install WebSphere 5 in
+ your   local  machine and note that the $WAS denotes the WebSphere     Application 
+   Server&#8217;s   installation         directory such as D:\WebSphere\AppServer 
+      in Windows  machine and $MOJ20 denotes        the    MapObjects    Java
+     Edition  2.0&#8217;s  installation directory such as D:\ESRI\MOJ20 in a Windows
+   machine in the following  steps.<br>
+                                                  <br>
+                                                  </li>
+                                                <li>Copy jar files from $MOJ20/lib
+     and   $MOJ20/Samples/Server/IOStreamProvider/esri_iostreamprovider.jar
+                    to the $WAS/lib/ext folder.<br>
+                                                                        
+                         </li>
+    <br>
+                                                <li>Start WebSphere: <br>
+      <br>
+  For a <b>Windows</b> machine,&nbsp; from startup   menu,    Start-&gt;
+     Programs-&gt;IBM           WebSphere -&gt; Application   Server   v5.0-&gt;Start
+      the Server.<br>
+      <br>
+   For a <b>Linux</b> or <b>Unix</b> machine,&nbsp; go to $WAS/bin directory, 
+ run the following script,<br>
+   <tt>prompt&gt; ./startServer.sh &lt;server_name&gt;</tt><br>
+                                                                        
+                          </li>
+   <br>
+                                                <li>Start WebSphere administrative
+     console: <br>
+     <br>
+ For a <b>Windows</b> machine,&nbsp;     from   startup       menu,    Start-&gt;IBM 
+   WebSphere-&gt;Application        Server  v5.0-&gt;Administrative      
+    Console. <br>
+     <br>
+ For a <b>Linux</b> or <b>Unix</b> machine, open a browser and enter an URL 
+in form of http://machine_name:port_number/admin (the default port for admin
+is 9090).&nbsp;    &nbsp;<br>
+                                                  <br>
+                                                  <img
+ src="images/image001.png" alt="" width="884" height="608">
+                                               <br clear="all">
+                                               <br>
+                                                  Enter User ID and then
+click    on  OK  button,     you   should    see   the   following      screen
+shot.<br>
+                                                  <br>
+                                                  <img
+ src="images/image003.png" alt="" width="831" height="607">
+                                               <br clear="all">
+                                               <br>
+                                                </li>
+                                                                        
+                  
+</ol>
+                                                                        
+                          
+<h3><a name="Deploy_a_web_application_as_temporary"></a>Deploy a web application 
+                        as temporary map image folder</h3>
+                                                                        
+                    
+<ol>
+                                             <li>       Create a war file 
+under    directory      of  $MOJ20/Samples/Server/J2EEServers/WebSphere/output 
+               folder    by issuing the following command in a command window: 
+         <br>
+                                                  <br>
+                                               <tt>       prompt&gt; jar
+&#8211;cf   output.war      WEB-INF</tt><br>
+                                                  <br>
+                                                  </li>
+                                                <li>The basic steps to deploy 
+  a  web   application       follows        the   pattern   of deploy the 
+archive,   save  the configuration,       and then     restart      the application 
+    server.  Here is start of  step-by-step     instructions.          <br>
+                                                  <br>
+                                                  </li>
+                                                <li>Click on the Applications-&gt;Install 
+        New   Application          in  the   left pane of the administrative 
+   console.<br>
+                                                  <br>
+                                               <img
+ src="images/image005.png" alt="" width="826" height="616">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>Click on <b>Browse&#8230;</b> 
+ to select    the   output.war      file     from   $MOJ20/Samples/Server/J2EEServers/WebSphere/output
+          and    type output    in    the Context Root: entry. Then click
+on   <b>Next</b>.<br>
+                                              <br>
+                                                  <img
+ src="images/image007.png" alt="" width="828" height="615">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>Select Generate Default 
+ Bindings     and   Override     existing        bindings,    then click 
+   <b>Next</b>.<br>
+                                                  <br>
+                                               <img
+ src="images/image009.png" alt="" width="828" height="614">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>Keep all the default
+setting     and   click    on  the    Next     button    to  go step 2. <br>
+                                                  <br>
+                                               <img
+ src="images/image011.png" alt="" width="841" height="695">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>Select Web Module and 
+click    on  the   Next   button     to   go  step   3.<br>
+                                               <br>
+                                                  <img
+ src="images/image013.png" alt="" width="839" height="698">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>Select an application 
+and   click    on  the   Module     check      box   and   then click on the
+Next   button    to go step   4.<br>
+                                              <br>
+                                                  <img
+ src="images/image015.png" alt="" width="841" height="695">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>The summary information 
+ is  listed    in  the   final     step     as  shown    in the following 
+screen  shot.  Click   on the   Finish   button  to   complete    the   deployment
+   of the  output.war   module.       <br>
+                                                  <br>
+                                               <img
+ src="images/image017.png" alt="" width="926" height="847">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>If you successfully deployed
+    output.war      module,       you    should    the  following screen
+shot.     Click on the    Save  to Master      Configuration       link to
+save the    configuration.<br>
+                                                  <br>
+                                               <img
+ src="images/image019.png" alt="" width="927" height="780">
+                                               <br clear="all">
+                                               <br>
+                                                  </li>
+                                                <li>Click on Enterprise Applications
+      node   in  the   left     pane   to  see   the deployed output.war
+module.       Click   on the check   box    next output_war      and  then
+click on   Start    button   to start up the  application.    The red-cross
+     sign    should    turn to  green arrow sign.  And you should   the server
+ configuration.            <br>
+                                                  <br>
+                                               <img
+ src="images/image021.png" alt="" width="967" height="834">
+                                               <br clear="all">
+                                               <br>
+                                            </li>
+                                                                        
+                
+</ol>
+                                                           
+<h3><a name="Deploy_JSP_viewers"></a>Deploy JSP viewers</h3>
+                                            
+<ol>
+                         <li>  Replace the <i><span
+ style="font-family: &quot;Courier New&quot;;">$MOJ</span>20</i>          string within
+        the   two         sample AXL files (usa.axl and world.axl     in
+$MOJ20/Samples/Server/AXLFiles         folder)   with   the MOJ 2.0   install
+         directory such as     <i><span
+ style="font-family: &quot;Courier New&quot;;">&#8216;/ESRI/MOJ20&#8217;</span></i>.          
+         <br>
+                                       <br>
+                                                                        
+                                                           
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; width: 100%; margin-left: 0.5in;">
+                                              <tbody>
+                                                <tr>
+                                               <td valign="top"
+ style="padding: 1.5pt;">                                               
+                                                                        
+                                                                        
+                                                    
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;ARCXML&gt;<br>
+                                               ...<br>
+                                               &lt;WORKSPACES&gt;<br>
+                                               &lt;SHAPEWORKSPACE name="ws-0" 
+  directory="$<i>MOJ20</i>/Samples/Data/USA"                      /&gt;<br>
+                                               &lt;/WORKSPACES&gt;<br>
+                                               ...<br>
+                                               &lt;/ARCXML&gt;</span></p>
+                                               </td>
+                                              </tr>
+                                                                        
+                                                                        
+                               
+      </tbody>                                                          
+                                                    
+    </table>
+                                         </li>
+                                       <br>
+                                           <li>Modifiy two map service  
+configuration               file,      mapservices.xml,                located
+   at&nbsp;    $MOJ20/Samples/Server/J2EEServers/WebSphere/JspViewer/WEB-INF/classes
+                                     directory and $MOJ20/Samples/Server/J2EEServers/WebSphere/JspServletViewer/WEB-INF/classes,
+           replace <i>$MOJ20</i> strings in the <tt>axl_file</tt> element
+with     the    MOJ2.0  install diretory such as '/ESRI/MOJ20'&nbsp;    
+     and    the     <tt>#output_directory_name#</tt>      strings with the
+   map    image       output  directory created in  of        <a
+ href="#Deploy_a_web_application_as_temporary">Deploy a web application 
+   as temporary map image folder</a>.   It   looks  something      like 
+ this:   (  where $LOCAL_MACHINE_NAME denotes WebSphere install machine name).
+           <br>
+                                            <br>
+                                                                        
+                                                           
+    <table border="0" cellpadding="0" width="100%" bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; width: 100%; margin-left: 0.5in;">
+                                                 <tbody>
+                                                   <tr>
+                                                  <td valign="top"
+ style="padding: 0in;">                                                  
+                                                                        
+                                                                        
+                                                  
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;services&gt;<br>
+                                                  &lt;name&gt;usa1&lt;/name&gt;<br>
+                                                  ...<br>
+                                                  &lt;output_dir&gt;<i>$WAS</i>/AppServer/installedApps/$LOCAL_MACINE_NAME/output_war.ear/output.war</span><span
+ style="font-family: &quot;Courier New&quot;;">&lt;/output_dir&gt;<br>
+                                                  &lt;output_url&gt;&lt;/output_url&gt;<br>
+                                                  &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/usa.axl&lt;/axl_file&gt;<br>
+                                                  ...<br>
+                                                  &lt;name&gt;world2&lt;/name&gt;<br>
+                                                  ...<br>
+                                                  &lt;output_dir&gt;<i>$WAS</i>/AppServer/installedApps/$LOCAL_MACINE_NAME/output_war.ear/output.war</span><span
+ style="font-family: &quot;Courier New&quot;;">&lt;/output_dir&gt;<br>
+                                                  &lt;output_url&gt;&lt;/output_url&gt; 
+                 <br>
+                       &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/world.axl&lt;/axl_file&gt;<br>
+                                                  ...<br>
+                                                  &lt;/services&gt;</span></p>
+                                                  </td>
+                                                 </tr>
+                                                                        
+                                                                        
+                               
+      </tbody>                                                          
+                                                    
+    </table>
+                                            </li>
+                                        <br>
+                                                                   <li>Use
+     <tt>jar</tt>       command    to create a war file named JspViewer.war
+    that packs all   the    files under       directory    of  $MOJ20/Samples/Server/J2EEServers/WebSphere/JspViewer<br>
+                                            <br>
+                                       </li>
+                                      <li>Use <tt>jar</tt> command to create
+  a  war   file   named    JspServletViewer.war        that packs all the
+files   under      directory        of $MOJ20/Samples/Server/J2EEServers/WebSphere/JspServletViewer<br>
+                                      <br>
+                                                  </li>
+                                      <li>Go through the similar steps 3
+through      11   as  shown    in  the   section  of &nbsp;<a
+ href="#Deploy_a_web_application_as_temporary">Deploy      a web application
+           as a temporary map image folder&nbsp;</a>to  deploy     JspViewer
+     (JspViewer.war      located at $MOJ20/Samples/Server/J2EEServers/WebSphere/JspViewer)
+            and JspServletViewer (JspServletViewer.war locate at $MOJ20/Samples/Server/J2EEServers/WebSphere/JspServletViewer)<br>
+                                       </li>
+                         <br>
+                                      <li>Now you can start testing these 
+two   JSP   viewers     by  following instructions  in <a
+ href="#Testing_JSP_Viewers">Testing JSP    Viewers</a><br>
+                                                                        
+                         <br>
+                       </li>
+                                         
+</ol>
+                                            
+<h3><a name="Deploy_SimpleEJB_and_its_viewer"></a>Deploy SimpleEJB and its
+                        viewer</h3>
+                                                                        
+       
+<ol>
+                                                  <li>  You can skip this 
+step   if  you   already     did the Step 1 in <a
+ href="#Deploy_JSP_viewers">Deploy    JSP Viewers</a>,     otherwise  replace 
+the <i><span style="font-family: &quot;Courier New&quot;;">$MOJ</span></i>       string 
+within the two              sample AXL files (usa.axl and world.axl)     
+ with  the MOJ 2.0 install           directory such as <i><span
+ style="font-family: &quot;Courier New&quot;;">&#8216;/ESRI/MOJ20&#8217;</span></i>            
+       <br>
+                                  <br>
+                                                                        
+                                                                        
+                                               
+    <table border="0" cellspacing="0" cellpadding="0" width="100%"
+ bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; width: 100%; margin-left: 0.5in;">
+                                         <tbody>
+                                           <tr>
+                                          <td valign="top"
+ style="padding: 1.5pt;">                                                
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                      
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;ARCXML&gt;<br>
+                                          ...<br>
+                                          &lt;WORKSPACES&gt;<br>
+                                          &lt;SHAPEWORKSPACE name="ws-0"
+directory="$<i>MOJ</i>/Samples/Data/USA"                       /&gt;<br>
+                                          &lt;/WORKSPACES&gt;<br>
+                                          ...<br>
+                                          &lt;/ARCXML&gt;</span></p>
+                                          </td>
+                                         </tr>
+                                                                        
+                                                                        
+                                                                        
+                                                                       
+      </tbody>                                                           
+                                                                        
+                                       
+    </table>
+                                    </li>
+                                <br>
+                                 <li>Modify the map service configuration 
+file,     mapservices.xml                 located at $MOJ20/Samples/Server/J2EEServers/WebSphere/SimpleEjb/META-INF
+                         directory, replace <i>$MOJ20</i> strings in the
+    <tt>axl_file</tt>           element with the MOJ2.0 install diretory
+such as '/ESRI/MOJ20'&nbsp;               and the <tt>#output_directory_name#</tt>
+strings with the    map       image      output  directory created in  of
+     <a href="#Deploy_a_web_application_as_temporary">Deploy a web application
+as           temporary map image folder</a>. It looks something like this
+(  Note     that        the  $LOCAL_MACINE_NAME      denotes the your local 
+machine   name  where     you   installed  the WebSphere  application    server).
+&nbsp;<br>
+                                         <br>
+                                                                        
+                                                                        
+                                                                        
+                     
+    <table border="0" cellpadding="0" width="100%" bgcolor="#cccccc"
+ style="background: rgb(180,204,204) none repeat scroll 50% 0%; width: 100%; margin-left: 0.5in;">
+                                           <tbody>
+                                             <tr>
+                                            <td valign="top"
+ style="padding: 0in;">                                                  
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                              
+          <p class="MsoNormal"><span style="font-family: &quot;Courier New&quot;;">&lt;services&gt;<br>
+                                            &lt;name&gt;usa1&lt;/name&gt;<br>
+                                            ...<br>
+                                            &lt;output_dir&gt;<i>$WAS</i>/AppServer/installedApps/$LOCAL_MACINE_NAME/output_war.ear/output.war&lt;/output_dir&gt;<br>
+                                            &lt;output_url&gt;&lt;/output_url&gt;<br>
+                                            &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/usa.axl&lt;/axl_file&gt;<br>
+                                            ...<br>
+                                            &lt;name&gt;world2&lt;/name&gt;<br>
+                                            ...<br>
+                                            &lt;output_dir&gt;<i>$WAS</i>/AppServer/installedApps/$LOCAL_MACINE_NAME/output_war.ear/output.war&lt;/output_dir&gt;<br>
+                                            &lt;output_url&gt;&lt;/output_url&gt; 
+              <br>
+                                            &lt;axl_file&gt;$<i>MOJ20</i>/Samples/Server/AXLFiles/world.axl&lt;/axl_file&gt;<br>
+                                            ...<br>
+                                            &lt;/services&gt;</span></p>
+                                            </td>
+                                           </tr>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                            
+      </tbody>                                                           
+                                                                        
+                                                               
+    </table>
+                                         <br>
+                                         <br>
+                                                   </li>
+                                        <li> Create a jar file called SimpleEjb.jar 
+     that     packs       all   the   contents  under directory of $MOJ20/Samples/Server/J2EEServers/WebSphere/SimpleEjb.<br>
+                                               <br>
+                                       </li>
+                                        <li>           Now start to assemble
+  a  J2EE   application       that     contains       both the SimpleEjb
+and   the  SimpleEjbViewer   with     WebSphere&#8217;s      Application      
+Assembly    Tool  (ATT). Start the  ATT  by   clicking on Start-&gt;    
+Programs-&gt;IBM         WebSphere  -&gt;  Application     Server v5.0-&gt;Application
+    Assembly   Tool,     you  will  see  the following     screen, change
+the display name   to <tt>SimpleEjbAndViewer.</tt><br>
+                                                  <br>
+                                               <img
+ src="images/image023.png" alt="" width="847" height="690">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Right Click on the 
+EJB   Modules     and   select     Import       menu   item in the popup menu.
+ Then navigate     the  file selection     window     to    the  $MOJ20/Samples/Server/J2EEServers/WebSphere/SimpleEjb 
+             folder    and select   the SimpleEjb.jar file you created in 
+Step     3.        <br>
+                                                  <br>
+                                               <img
+ src="images/image025.png" alt="" width="847" height="690">
+                                               <br>
+                                               <br>
+                                        </li>
+                                        <li>          Click on OK in the
+popup    confirmation       window      (and     optionally   you can enter
+an alternate    description).<br>
+                                                  <br>
+                                               <img
+ src="images/image027.png" alt="" width="847" height="689">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Right Click on the 
+Web   Modules     and   select     Import       menu   item in the popup menu.
+ Then navigate     the  file selection     window     to    the  $MOJ20/Samples/Server/J2EEServers/WebSphere 
+              folder   and  select the SimpleEjbViewer.war file. Type SimpleEjbViewer 
+            in the  Context     Root: field and then click OK. <br>
+                                                  <br>
+                                               <img
+ src="images/image029.png" alt="" width="847" height="690">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Save the application 
+ as  SimpleEjbAndViewer.ear               file     in the folder of $MOJ20/Samples/Server/J2EEServers/WebSphere.<br>
+                                                  <br>
+                                               <img
+ src="images/image031.png" alt="" width="847" height="691">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Now go to WebSphere
+ Administrative        Console    to   deploy       the  SimpleEjbAndViewer.ear
+ file. Click   on   the  node of   Applications-&gt;Install             
+New  Application   and  then click on the  Browse&#8230; button and navigate  
+   to    the    folder   of  $MOJ20/Samples/Server/J2EEServers/WebSphere
+   and  select     SimpleEjbAndViewer.ear           file.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image033.png" alt="" width="841" height="710">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on Next button 
+  to  go  next   screen     in   which      you check the top checkbox of&nbsp;
+     &#8220;Generate  Default   Bindings&#8221; <br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image035.png" alt="" width="838" height="705">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step1    where    you    check       the   Deploy EJBs checkbox 
+and  change   Application    Name    entry   to SimpleEjbAndViewer       
+    while keeping   others as   default   values.<br>
+                                                  <br>
+                                               <img
+ src="images/image037.png" alt="" width="840" height="710">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on Next button 
+ and   click    Next   button     in   the     Step  2 screen without changing 
+ any  default    values.<br>
+                                                  <br>
+                                                  In the Step 3 screen, make
+  sure   EJB   MapServiceI&#8217;s             JNDI   name  is ejb/MapServiceI.
+    <br>
+                                                  <br>
+                                               <img
+ src="images/image039.png" alt="" width="841" height="710">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   4  and   check      the     Web    Module checkbox. <br>
+                                                  <br>
+                                               <img
+ src="images/image041.png" alt="" width="839" height="711">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   5  and   check      the     Module    checkbox and select 
+an application     server  from   the server    list.<br>
+                                                  <br>
+                                               <img
+ src="images/image043.png" alt="" width="841" height="710">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   6  and   check      the     Web    Module checkbox and
+select   an application     server   from the    server     list.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image045.png" alt="" width="841" height="709">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   7  that   displays         a   summary  of all the information
+   from  Step  1 through   Step 6.<br>
+                                                  <br>
+                                               <img
+ src="images/image047.png" alt="" width="841" height="709">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on the Finish
+ button.     The   console     will     go   on   to generate necessary deployment
+ descriptors      and classes.     Once    it   finished,      click on Save
+ to Master Configuration     to save     the application.               
+    <br>
+                                                  <br>
+                                               <img
+ src="images/image049.png" alt="" width="841" height="709">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           To start the application,
+    click    on  the   Applications-&gt;Enterprise               Applications.
+    Check  on  the  check   box next SimpleEjbAndViewer  and    then    
+click        on  Start  button.  Now   the application is started,  you can
+  go  on     to  test it.    <br>
+                                                  <br>
+                                               <img
+ src="images/image051.png" alt="" width="841" height="710">
+                                               <br>
+                                               <br>
+                                       </li>
+                          <li>Now you can start testing SimpleEJB and its 
+viewer    by  following      instructions  in <a
+ href="#Testing_SimpleEJB_and_its_viewer">Testing SimpleEJB     and its Viewers</a>.<br>
+                           <br>
+                         </li>
+                                                                        
+                          
+</ol>
+                                                                        
+                
+<h3><a name="Deploy_AdvancedEJB_and_its_viewer"></a>Deploy AdvancedEJB and
+                       its viewer</h3>
+                                                                        
+                    
+<ol>
+                                                                        
+                                                                        
+                 
+  <h4>Create a Database Table of mapservice</h4>
+                                                                        
+                                       
+  <h5>For Oracle Database </h5>
+                                                       <li>Create    a  
+MAPSERVICE                table      using   Oracle&#8217;s  Enterprise    Database
+        Manager          or  SQLPlus.   Please           note   that    
+the  CONFIG       column         data    type  is    CLOB.<br>
+                                                                        
+                                                  
+    <blockquote><tt> CREATE TABLE "user_name"."MAPSERVICE" ("NAME" VARCHAR2(255)
+                                                               NOT NULL,<br>
+                                                         &nbsp;&nbsp;&nbsp; 
+          "TYPE"     VARCHAR2(50)             NOT     NULL,       "CONFIG"
+      CLOB   NOT NULL,                        <br>
+                                                         &nbsp;&nbsp;&nbsp; 
+          "OUTPUT_DIR"             VARCHAR2(255),               "OUTPUT_URL"
+           VARCHAR2(255),                     <br>
+                                                         &nbsp;&nbsp;&nbsp; 
+          "IMAGE_FORMAT"               VARCHAR2(5)             NOT     NULL,
+      UNIQUE("NAME"))&nbsp;                        <br>
+                                                         &nbsp;&nbsp;&nbsp; 
+          TABLESPACE           "table_space_name"</tt></blockquote>
+                                                    </li>
+                                                     <li>Get JDBC driver
+from   the   Oracle    server    installation       (usually     classes12.jar 
+  file  from folder    like $ORACLE/ora92/jdbc/lib)          and place   it
+  in the  $WAS/lib/ext      folder.</li>
+                                                             
+</ol>
+                                                             
+<ol>
+                                                                        
+   
+  <h5>For Microsoft SQL Database </h5>
+                                                       <li>Create    a  
+MAPSERVICE                table.   Please        note   that     the    CONFIG
+   column       data     type  is    TEXT.<br>
+                                                                        
+                                                  
+    <blockquote><tt> CREATE TABLE mapservice (name varchar(255), type varchar(50), 
+         config text, output_dir varchar(255),</tt><tt> output_url varchar(255)</tt><tt>,
+    image_format      varchar(5)) </tt></blockquote>
+                                                    </li>
+                                                      <li>Download JDBC driver
+   from   Microsoft     web site at <a
+ href="http://www.microsoft.com/sql" target="_blank"> http://www.microsoft.com/sql
+           </a>        (3 jar  files, msbase.jar, mssqlserver.jar and msutil.jar,
+       extracted from either  the downloaded tar file or installation program)
+    and     place them  in  the $WAS/lib/ext   folder.</li>
+                                                                
+</ol>
+                                                               
+<h4>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Create JDBC provider and connection
+                pool</h4>
+                                                               
+<ol>
+                                       <li>   Click    on the Resources-&gt;JDBC
+    Providers      node   on  the   left   pane  of the    admin console.
+      <br>
+                                                  <br>
+                                               <img
+ src="images/image053.png" alt="" width="880" height="774">
+                                               <br>
+                                               <br>
+                                         </li>
+                     <li>Click on <b>New</b> button and <br>
+                    &nbsp;&nbsp;&nbsp; select &#8220;Oracle JDBC Thin Driver &#8221;
+ from   the   JDBC   Providers   dropdown list for Oracle Database, or <br>
+                    &nbsp;&nbsp;&nbsp; select &#8220;Microsoft JDBC driver for
+MSSQL    Server    2000   &#8221;  from the JDBC Providers dropdown list for Microsoft
+ SQL  Server   Database <br>
+                                                   <br>
+                                               <img
+ src="images/image055.png" alt="" width="881" height="775">
+                                               <br>
+                                               <br>
+                                         </li>
+                                       <li>Click OK button to go to next
+screen,     where       you     clear     the   Classpath  entry since we
+put the Oracle    JDBC   driver  or  Microsoft JDBC driver for MSSQL Server
+2000 in   the   $WAS/lib/ext      folder.<br>
+                                                  <br>
+                                               <img
+ src="images/image057.png" alt="" width="877" height="821">
+                                               <br>
+                                               <br>
+                                          </li>
+                                       <li>Click OK button to finish the
+creation     of   JDBC     provider.        Click   on Save link to save
+the changes   made  to the configuration.<br>
+                                                  <br>
+                                               <img
+ src="images/image059.png" alt="" width="848" height="739">
+                                               <br>
+                                               <br>
+                                           </li>
+                                       <li>Click on JDBC Providers node again 
+  and   you     should       see   the   newly   created the <tt>Oracle JDBC 
+  thin   driver</tt>    or     <tt>Microsoft JDBC driver for MSSQL Server 
+2000</tt>.        <br>
+                                                  <br>
+                                               <img
+ src="images/image061.png" alt="" width="848" height="739">
+                                               <br>
+                                               <br>
+                                           </li>
+                                       <li>Click on <tt>Oracle JDBC Thin
+Driver</tt>       or      <tt>Microsoft   JDBC driver for MSSQL Server 2000</tt>.
+    <br>
+                                                  <br>
+                                               <img
+ src="images/image063.png" alt="" width="848" height="739">
+                                               <br>
+                                               <br>
+                                            </li>
+                                       <li>Scroll down the right pane and 
+click    on   Data     Source       link.<br>
+                                                  <br>
+                                               <img
+ src="images/image065.png" alt="" width="848" height="739">
+                                               <br>
+                                               <br>
+                                            </li>
+                                       <li>Click New button to start creating 
+  a  data     source.         Enter    &#8220;Oracle   Thin Data Source&#8221; or &#8220;MSSSQL 
+  2000 Data    Source&#8221; as  Name, and &#8220;jdbc/OracleDS&#8221; or &#8220;jdbc/MSSQLDS&#8221; as 
+ JNDI  Name.<br>
+                                                  <br>
+                                                  <img
+ src="images/image067.png" alt="" width="848" height="739">
+                                               <br>
+                                               <br>
+                                           </li>
+                                       <li>Click OK to go to next step.<br>
+                                                  <br>
+                                                  <img
+ src="images/image069.png" alt="" width="849" height="740">
+                                               <br>
+                                               <br>
+                                                </li>
+                                       <li>Click on Oracle Thin Data Source 
+ link    or  MSSSQL    2000 Data Source and   scroll    down    the   right 
+  pane    so you  can see    those Additional properties   of  data  source. 
+         <br>
+                        <br>
+                                                  &nbsp;<img
+ src="images/image071.png" alt="" width="849" height="739">
+                                               <br>
+                                                  <br>
+                                               </li>
+                                       <li>Click on Custom Properties link
+ to  go  to   next     screen.<br>
+                                                  <br>
+                                                  &nbsp;<img
+ src="images/image073.png" alt="" width="848" height="739">
+                                               <br>
+                                                  &nbsp;<br>
+                                              </li>
+                                       <li>For Oracle database, click on
+URL   link   and   enter    the JDBC driver    URL   in   form   of <br>
+                      <tt>jdbc:oracle:thin:username/password@machine_name:port_number:db_name</tt> 
+             <br>
+                      <br>
+                      For Microsoft SQL Server database, make sure the required 
+   properties      are set correctly, e.g., <br>
+                      &nbsp;<tt>dabaseName: pubs</tt><br>
+                      &nbsp;<tt>portNumber: 1433</tt><br>
+                      &nbsp;<tt>serverName: localhost</tt><br>
+                                                   <br>
+                                               <img
+ src="images/image075.png" alt="" width="838" height="739">
+                                                  &nbsp;<br>
+                                                  <br>
+                                              </li>
+                                       <li>Click OK button and then save
+the   configuration.                  <br>
+                                      </li>
+                                          <br>
+                                                                        
+                                  
+  <h4>Assembling the AdvancedEjbAdmin application<br>
+                                       </h4>
+                                      <li>If you just want to use standalone
+  AdvancedEJB       admin  tool, you can skip this step. Otherwise, download
+  the com.oreilly.servlet        from <a
+ href="http://www.servlets.com/cos/index.html" target="_blank">http://www.servlets.com/cos/index.html</a> 
+                 and unzip   the    file and copy the cos.jar file to the 
+$MOJ20/Samples/Server/J2EEServers/WebSphere/AdvanedEjbAdmin/WEB-INF/lib  
+                     and then re-create the AdvancedEjbAdmin.war file that
+     packs      all    the    contents      under $MOJ20/Samples/Server/J2EEServers/WebSphere/AdvanedEjbAdmin.<br>
+                                                  <br>
+                                         </li>
+                                       <li>Start the Application Assembly 
+Tool   and    choose       Application         option  from the popup menu. 
+And  change   the Display      name to   &#8220;AdvancedEjbAdmin&#8221;           and 
+click      <b>Apply</b>.<br>
+                                                  <br>
+                                                  &nbsp;<img
+ src="images/image077.png" alt="" width="923" height="761">
+                                               <br>
+                                                  <br>
+                                         </li>
+                                       <li>Right click on EJB Modules to
+import    CatalogEjb.jar              file   from   $MOJ20/Samples/Server/J2EEServers/WebSphere 
+   folder.<br>
+                                                  &nbsp;<img
+ src="images/image079.png" alt="" width="922" height="759">
+                                               <br>
+                                                  <br>
+                                          </li>
+                                       <li>Click <b>OK</b> to confirm the
+selection   of  CatalogEjb.jar.<br>
+                                                  <br>
+                                    <img src="images/image081.png"
+ alt="" width="922" height="759">
+                                               <br>
+                                                  <br>
+                                           </li>
+                                                           <li>Click on the 
+ EJB   Modules-&gt;MOJ       server  EJB-&gt;Session          Beans   to enter
+ JNDI  Name of &#8220;ejb/Catalog&#8221;       and then click  <b>Apply</b>.<br>
+                                                  <br>
+                                                  <img
+ src="images/image083.png" alt="" width="922" height="760">
+                                               <br>
+                                                  &nbsp;                
+               <br>
+                                          </li>
+                                       <li>Click on the EJB Modules-&gt;MOJ 
+ server     EJB-&gt;Entity             Beans-&gt;ServiceCatalogBean1    to 
+ enter JNDI    Name of &#8220;ejb/ServiceCatalogBean1&#8221;                 in the Bindings
+  tab    and then click <b>Apply</b>.<br>
+                                                  <br>
+                                               <img
+ src="images/image087.png" alt="" width="921" height="759">
+                                                  &nbsp;<br>
+                                             </li>
+                                       <li>Click on the EJB Modules-&gt;MOJ 
+ server     EJB-&gt;Entity             Beans-&gt;ServiceCatalogBean1-&gt;Resource
+     References  to enter      JNDI    Name     of &#8220;ejb/OracleDS&#8221; or &#8220;ejb/MSSQLDS&#8221; 
+     in the Bindings tab      and then click  <b>Apply</b> (make   sure  
+the   Authentication is Application       not Container    in the   General 
+tab).<br>
+                                                  <br>
+                                                  <img
+ src="images/image089.png" alt="" width="922" height="760">
+                                               <br>
+                                                  <br>
+                                           </li>
+                                       <li>Right click on Web Module to import
+   the    AdvancedEjbAdmin.war                file from $MOJ20/Samples/Server/J2EEServers/WebSphere. 
+      And  enter      AdvancedEjbAdmin          in the Context root: field 
+ and    then click  OK   button<br>
+                                                  <br>
+                                                  <img
+ src="images/image091.png" alt="" width="921" height="759">
+                                               &nbsp;<br>
+                                                  <br>
+                                             </li>
+                                       <li>Click on Web Modules-&gt;AdvancedEjbAdmin.war-&gt;EJB
+                  References    node and click on Bindings and enter &#8220;ejb/Catalog&#8221;
+         in   the    JNDI     name:    field. <br>
+                                                  <br>
+                                               <img
+ src="images/image093.png" alt="" width="922" height="760">
+                                                  &nbsp;<br>
+                                              </li>
+                                       <li>Save the assembled application 
+as  AdvancedEjbAdmin.ear                 file   in the $MOJ20/Samples/Server/J2EEServers/WebSphere 
+  folder.<br>
+                                      </li>
+                                                                        
+                                                                        
+                                  
+  <h4>Deploy the AdvancedEJB Admin Tool<br>
+                                       </h4>
+                                      <li>Go through steps 3 through 11 as
+ shown    in  the   section     of  &nbsp;<a
+ href="#Deploy_a_web_application_as_temporary">Deploy   a web   application 
+       as    a temporary map image folder&nbsp;</a> to  deploy   AdvancedEjbAdmin 
+           application    you just assembled (AdvancedEjbAdmin.ear).<br>
+                                                                        
+                                                                        
+                                                                     
+    <h4>              Assemble the AdvancedEJB and its Viewer</h4>
+                                      </li>
+                                       <li>Go through the similar steps 14
+ through     23   again       to   assemble      the AdvancedEjbAndViewer
+application    to create  an  AdvancedEjbAndViewer.ear               file.
+The two files    used to create   the AdvancedEjbAndViewer.ear      are 
+  AdvancedEjb.jar         and AdvancedEjbViewer.war   located at $MOJ20/Samples/Server/J2EEServers/WebSphere. 
+                         <br>
+                                                  <b>a</b>.&nbsp;&nbsp; &nbsp;After 
+     importing    both files,    make   sure   that   each   bean   has its 
+  JNDI   name bindings    set up correctly     in  the EJB  Modules.    For 
+    the  session  bean, set   ejb/MapServiceII  for   MapServiceII    bean 
+ and  ejb/LayoutService      for    LayoutService bean.   For  the local entity
+     bean, set ejb/ServiceCatalogBean2           for ServiceCatalogBean2 
+    and set jdbc/OracleDS    for jdbc/MapServiceDS      in   the   Resource 
+  References      node and make sure  the  Authentication       is Application, 
+       not Container.          <br>
+                                                  <b>b</b>.&nbsp;&nbsp; &nbsp;In
+    the   Web   Modules,  in  the   EJB   References      node,    make 
+ sure    3 referenced     beans have  their  JNDI bindings  set as   same
+ as its     value   in the    Name field.     <br>
+                                       </li>
+                                                                        
+                                                                        
+                                     
+  <h4>Deploy AdvancedEjb and its viewer</h4>
+                     <li>           Now go to WebSphere Administrative Console
+    to    deploy          the  AdvancedEjbAndViewer.ear file. Click on the
+ node   of   Applications-&gt;Install                 New Application and
+then click   on  the Browse&#8230; button and navigate         to   the    folder
+of $MOJ20/Samples/Server/J2EEServers/WebSphere     and    select     AdvancedEjbAndViewer.ear
+        file.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image226.png" alt="" width="837" height="712">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on the Next
+button    to  go  next   screen     in   which      you check the top checkbox
+of  &#8220;Generate     Default   Bindings&#8221;.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image227.png" alt="" width="836" height="710">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   1  where   you    check       the   Deploy EJBs checkbox 
+while   keeping   others    as default  values.<br>
+                                                  <br>
+                                               <img
+ src="images/image228.png" alt="" width="845" height="786">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on Next button 
+ and   click    Next   button     in   the     Step  2 screen after selecting 
+ a  Database   Type which   should be either MSSQLServer_2000 (or MSSQLSERVER_V7) 
+  or ORACLE_9I    (or ORACLE_8).                                  <br>
+                    <br>
+                                                          <img
+ src="images/image229.png" alt="" width="847" height="786">
+                                                   <br>
+                    <br>
+                                                  </li>
+                    <li>                                In the Step 3 screen, 
+  make   sure   EJB  MapServiceII&#8217;s          JNDI   name  is <tt>ejb/MapServiceII</tt>, 
+     LayoutService's   JNDI name is <tt>ejb/LayoutService</tt> and ServiceCatalogBean2's 
+     JNDI name   is <tt>ejb/ServiceCatalogBean2</tt>. <br>
+                                                  <br>
+                                               <img
+ src="images/image230.png" alt="" width="848" height="788">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   4  of  Map EJB references to beans and make sure all referenced
+   JNDI  names   are  correct  and one of the JNDI names shown in last step.
+       <br>
+                                                  <br>
+                                               <img
+ src="images/image231.png" alt="" width="817" height="788">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   5  of  Map resource references to resources  and select
+a JNDI  name  from  the  dropdown  list of <tt>Specify existing Resource
+JNDI name:</tt>,    click  the      <tt>MOJ server EJB</tt> checkbox. <br>
+                                                  <br>
+                                               <img
+ src="images/image232.png" alt="" width="816" height="786">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   6  of  Map virtual hosts for web modules  and check  
+   the      Web     Module   checkbox.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image233.png" alt="" width="817" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                         <li>           Click Next button 
+to  go  to  Step   7  of Map modules to application servers   and check  
+   the     Module  checkbox  and select a server instance from list of Clusters 
+  and Servers.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image234.png" alt="" width="816" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   8  of  Ensure all unprotected 2.0 methods have the correct 
+ level   of  protection      and check      the    EJB Module checkbox.<br>
+                                                  &nbsp;<br>
+                                               <img
+ src="images/image235.png" alt="" width="817" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click Next button
+to  go  to  Step   9  that   displays         a   summary  of all the information
+   from  Step  1 through   Step 8.<br>
+                                                  <br>
+                                               <img
+ src="images/image236.png" alt="" width="817" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on the Finish
+ button.     The   console    will     go   on   to generate necessary deployment
+ descriptors       and classes.    Once    it   finished,      click on Save
+ to Master Configuration      to save    the application to master configuration
+ file.                    <br>
+                                                  <br>
+                                               <img
+ src="images/image237.png" alt="" width="817" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           Click on the Save
+button    to  confirm     that you do want to save the application to master
+configuration      file.                 <br>
+                                                  <br>
+                                               <img
+ src="images/image238.png" alt="" width="817" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                        <li>           To start the application,
+    click    on  the   Applications-&gt;Enterprise               Applications.
+    Check  on  the  check   box next to AdvancedEjbAndViewer  and    then
+    click    on  Start  button.  <br>
+                                                  <br>
+                                               <img
+ src="images/image239.png" alt="" width="817" height="787">
+                                               <br>
+                                               <br>
+                                       </li>
+                                <li>Now you can start testing AdvancedEJB 
+and   its   viewer    by  following  instructions  in <a
+ href="#Testing_AdvancedEJB_and_its_viewer_with_web">Testing  AdvancedEJB 
+                                         and its viewer with web-based  admin 
+    tool</a>,     or <a href="#Testing_AdvancedEJB_and_its_viewer_with">Testing 
+    AdvancedEJB                                        and its viewer with 
+ stand   alone admin    tool</a>.<br>
+                         </li>
+                                            
+</ol>
+                                                                        
+                                                                        
+                                    
+<h2><a name="Testing_JSP_viewers_map_EJBs_and_their"></a>Testing JSP viewers, 
+                      map EJBs and their viewers<br>
+                                     </h2>
+                                           
+<h3><a name="Testing_JSP_Viewers"></a>Testing JSP Viewers<br>
+                                    </h3>
+                                            
+<ol>
+                                      <li>Type the following URL in a browser 
+  to   test     JspViewer,         http://localhost:&lt;portnumber&gt;/JspViewer/viewer.htm.<br>
+                                        <br>
+                                                </li>
+                                      <li>Type the following URL in a browser 
+  to   test     JspServletViewer,             http://localhost:&lt;portnumber&gt;/JspServletViewer/viewer.htm.<br>
+                                                  <br>
+                                      </li>
+                                            
+</ol>
+                                             
+<h3><a name="Testing_SimpleEJB_and_its_viewer"></a>Testing SimpleEJB and
+its viewer</h3>
+                                                                        
+                   
+<ol>
+                                      <li>Type the following URL in a browser,
+   http://localhost:&lt;portnumber&gt;/SimpleEjbViewer/viewer.htm,      
+                you should see the following screen shot that display   a
+ dropdown         list     showing    a list of map services. <br>
+                                                  <br>
+                                                  <img
+ src="images/image095.png" alt="" width="829" height="708">
+                                               &nbsp;<br>
+                                                  <br>
+                                                  </li>
+                                      <li>Select &#8216;usa1&#8217; and click &#8216;Get Map
+ Service&#8217;       and     you     should    see   the usa map shown in the
+browser.      <br>
+                                                  <br>
+                                                  <img
+ src="images/image097.png" alt="" width="825" height="706">
+                                               &nbsp;<br>
+                                                  <br>
+                                     </li>
+                                                                       
+</ol>
+                                                                        
+                                  
+<h3><a name="Testing_AdvancedEJB_and_its_viewer_with"></a>Testing AdvancedEJB 
+                        and its viewer with standalone admin tool<br>
+                                    </h3>
+                                                                        
+             
+<ol>
+                                      <li>Copy <tt>$WAS/bin/clientConfig.bat</tt> 
+    in  Windows or  similar script in Linix/Unix machine, to a new file say 
+      <tt>RunMOJEjbAdmin.bat</tt>    for Windows or<tt> RunMOJEjbAdmin</tt> 
+  for others.<br>
+               </li>
+               <br>
+                <li>Append the following line to Java's classpath in the
+above    script:<br>
+          <br>
+                for <b>Windows</b> (after "%WAS_CLASSPATH%" ) <br>
+                 <tt><nobr>$MOJ20\Samples\Server\J2EEServers\WebSphere\AdvancedEjbAdminApp.jar;$WAS\installedApps\&lt;machine_name&gt;\AdvancedEjbAdmin.ear.ear\CatalogEjb.jar</nobr></tt><br>
+                <br>
+                for <b>Linux and Unix</b><br>
+                  <tt><nobr>$MOJ20/Samples/Server/J2EEServers/WebSphere/AdvancedEjbAdminApp.jar:$WAS/installedApps/&lt;machine_name&gt;/AdvancedEjbAdmin.ear.ear/CatalogEjb.jar</nobr></tt><br>
+                </li>
+        <br>
+                <li>Run the script, you should see a Java application   
+     running     with the following    screen shot:<br>
+                                                  &nbsp;<br>
+                     <img src="images/image098.png" alt="" width="824"
+ height="512">
+                                                                        
+                                                           <br
+ clear="all">
+                                                                        
+                                                          <br>
+                                                                        
+                                 </li>
+                    <li>Click      on  the   &#8220;Add   Services&#8221;       on  
+the       left       pane     to  add    a   new     service.    Fill   
+ out  entries          as shown    in  the   following    screen     shot,
+  where      the   OutputURL             is  only required    if you  are
+using    jCIFS  or   NFS   file  system        to   output   map    images.
+Click on  the         <b>Add</b>  button to  add this new serviec to the
+database.  If the  service  info has been  successfully  added into the database,
+you  should  see message  saying that "The service  'world' has been successfully
+ added".&nbsp;                                                     <br>
+                                                                        
+                                           <br>
+                                                                        
+                                     <img src="images/image100.png"
+ alt="" width="825" height="512">
+                                                                        
+                                                              <br
+ clear="all">
+                                                                        
+                                                          <br>
+                                                                        
+                                 </li>
+                    <li>Click on "List Services" on the left  pane   to show
+  all   deployed     services.     <br>
+                                                                        
+                                           <br>
+                                                                        
+                                    <img src="images/image102.png"
+ alt="" width="825" height="512">
+                                                                        
+                                                          <br
+ clear="all">
+                                                                        
+                                                              <br>
+                                                                        
+                                 </li>
+                    <li>Select a service name such as world,  then   click
+       on   the       <b>Show  Service Details</b>      button       to 
+ show        information                 about    the selected        service. 
+                                                                  <br>
+                                                                        
+                                           <br>
+                                                                        
+                                     <img src="images/image104.png"
+ alt="" width="825" height="512">
+                         &nbsp;<br>
+                        </li>
+                    <li>To    test   a  service,     open   a  browser  
+    and       type         the    URL     shown        in   the bottom of 
+the  above   screen     shot   (<a
+ href="http://localhost:9080/AdvancedEjbViewer/viewer.htm?ServiceName=world"
+ target="_blank">http://localhost:9080/AdvancedEjbViewer/viewer.htm?ServiceName=world</a>). 
+                                                                   </li>
+                                                                     
+</ol>
+                                                                        
+                                    
+<h3><a name="Testing_AdvancedEJB_and_its_viewer_with_web"></a> Testing AdvancedEJB
+                        and its viewer with web-based admin tool</h3>
+                                                                        
+                 
+<ol>
+                                      <li>Type the following URL in a browser 
+  to   bring       up   the    admin    tool,  <a
+ href="http://localhost:9080/AdvancedEjbAdmin/index.html"
+ target="_blank">http://localhost:9080/AdvancedEjbAdmin/index.html</a>  
+        (note you might have different http port).<br>
+                                                  <br>
+                                               <img
+ src="images/image105.png" alt="" width="825" height="706">
+                                                  &nbsp;<br>
+                                                  <br>
+                                           </li>
+                                      <li>Click on the &#8216;Add Service&#8217; to add 
+ a  new    map     service.        You   need   to fill out entries of ServiceName,
+     ServiceType     (right     now  it should    be &#8216;image&#8217;), Image Format
+  (PNG,   JPG etc),  Output   Directory        or OutputURL     (for  things
+  like jCIFS  and/or  NFS servers),  and  the    service   configuration
+    ArcXML  file  location  or the ArcXML  doc. Click     on Add button 
+ after  you   have  fill out required entries.  If the service     is successfully
+    added,   you should  see a line saying  &#8220;The new service    &#8216;world&#8217; 
+has   been  successfully    added&#8221;.<br>
+                                                  <br>
+                                                  <img
+ src="images/image107.png" alt="" width="826" height="706">
+                                               &nbsp;<br>
+                                                  <br>
+                                                </li>
+                                      <li>Click on the List Services to get 
+ a  list     of   all     available       map  services.<br>
+                                                  <br>
+                                                  <img
+ src="images/image109.png" alt="" width="826" height="706">
+                                               &nbsp;<br>
+                                                  <br>
+                                               </li>
+                                      <li>Click on the service name to list 
+ the   contents         of   the   service     information.<br>
+                                                  &nbsp;<br>
+                                    <img src="images/image111.png"
+ alt="" width="824" height="705">
+                                               <br>
+                                                  <br>
+                                          </li>
+                                      <li>Click on the hyperlink on the bottom
+   of  last  screen "Show     world Map&#8221;.<br>
+                                                  <br>
+                                               <img
+ src="images/image113.png" alt="" width="828" height="709">
+                                                  &nbsp;<br>
+                                                  <br>
+                                     </li>
+                                                                       
+</ol>
+                                 <br>
+                                <br>
+                             <br>
+                            <br>
+                             <br>
+                          <br>
+                      <br>
+                   <br>
+                   <br>
+                <br>
+               <br>
+                <br>
+            <br>
+         <br>
+        <br>
+        <br>
+     <br>
+    <br>
+     <br>
+</body>
+</html>

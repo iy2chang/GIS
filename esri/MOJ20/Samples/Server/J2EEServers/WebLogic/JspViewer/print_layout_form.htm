@@ -1,0 +1,104 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<HTML>
+<HEAD>
+
+	<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+		var t;
+		var toc;
+		//alert("opener=" + opener);
+
+		if (opener) {
+			//alert(opener.name);
+			if (opener.name=="MapFrame") {
+				t = opener.parent.MapFrame;
+				//toc = opener.parent.TOCFrame;
+			} else {
+				t = opener;
+			}
+		} else {
+			//toc = parent.TOCFrame
+			if (parent.MapFrame) {
+				t = parent.MapFrame;
+			} else {
+				t=document;
+			}
+		}
+		document.writeln('<TITLE>' + t.titleList[23] + '</TITLE>');
+
+		//alert("layervisible=" + t.LayerVisible.length + " " + t.LayerVisible[0]);
+
+
+		function goPrint() {
+
+			var theTitle = document.forms[1].MapTitle.value;
+
+			var visibility = "";
+			var i=0;
+			for (i=0; i<t.LayerVisible.length; i++) {
+				visibility=visibility + "&layervis"+i;
+				if (t.LayerVisible[i] == 1)
+					visibility = visibility +"=true";
+				else
+					visibility = visibility +"=false";
+
+			}
+			//alert(visibility);
+			//alert("query string=" + t.QueryString + " find string=" + t.FindString )
+
+
+			t.currentLayoutImageURL =  t.MOJServerController+"?Cmd=Print"
+			    +"&MinX="+t.forceComma(t.minX)+"&MinY="+t.forceComma(t.minY)+"&MaxX="+t.forceComma(t.maxX)+"&MaxY="+t.forceComma(t.maxY)
+			    +"&SelectMinX="+t.forceComma(t.tempLeft)+"&SelectMinY="+t.forceComma(t.tempBottom)+"&SelectMaxX="+t.forceComma(t.tempRight)+"&SelectMaxY="+t.forceComma(t.tempTop)
+			    +"&Width="+t.getWinWidth()+"&Height="+t.getWinHeight()
+			    +"&ServiceName="+t.ServiceName+"&Active="+t.ActiveLayerIndex+visibility
+			    +"&QueryString="+t.QueryString+"&FindString="+t.FindString
+			    +"&BufferDistance="+t.forceComma(t.BufferDistance)+"&BufferUnit="+t.BufferUnit+"&TargetLayer="+t.TargetLayer
+			    +"&MapTitle="+theTitle;
+			t.getPrintLayout(theTitle);
+		}
+
+	</SCRIPT>
+</HEAD>
+<CENTER>
+<BODY BGCOLOR="White" TEXT="Black">
+
+<form action="">
+<input type='hidden' name='Cmd' size='5' value='InitMap'>
+<input type='hidden' name='OptionCmd' value='Select'>
+<input type='hidden' name='Active' size='5' value=''>
+<input type='hidden' name='MapX' size='5' value=''>
+<input type='hidden' name='MapY' size='5' value=''>
+<input type='hidden' name='Tolerance' size='5' value=''>
+<input type='hidden' name='SelectMinX' size='5' value=''>
+<input type='hidden' name='SelectMinY' size='5' value=''>
+<input type='hidden' name='SelectMaxX' size='5' value=''>
+<input type='hidden' name='SelectMaxY' size='5' value=''>
+<input type='hidden' name='ServiceName' size='10' value=''>
+<input type='hidden' name='Width' value="">
+<input type='hidden' name='Height' value="">
+<input type='hidden' name='QueryString' value=''>
+<input type='hidden' name='SampleField' value=''>
+<input type='hidden' name='FindString' value=''>
+</form>
+
+<FORM onsubmit="goPrint();return false;">
+
+	<FONT FACE="Arial">
+	<FONT FACE="Arial" SIZE="+1">
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+		document.writeln('<B>' + t.titleList[24] + '</B></FONT><P>');
+		document.writeln(t.titleList[19]);
+		document.writeln('<INPUT TYPE="Text" NAME="MapTitle" VALUE="' + t.titleList[25] + '"><BR>');
+		document.writeln('<INPUT TYPE="Submit" NAME="submit" VALUE="' + t.buttonList[50] + '"><P>');
+		document.writeln('<FONT FACE="Arial" SIZE="-1">');
+		document.write(t.msgList[96]);
+		document.write(t.msgList[97]);
+		document.writeln(t.msgList[98]);
+	</SCRIPT>
+	</FONT>
+	</FONT>
+</FORM>
+</BODY>
+</CENTER>
+</HTML>
+
